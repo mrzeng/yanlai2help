@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        /*左侧菜单条目鼠标滑过之后变大*/
+        .menu-a {
+            font-size: 16px;
+        }
+
+        .menu-a:hover {
+            font-size: 18px;
+        }
+        form fieldset {
+            border: 0;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+        }
+
+        input {
+            width: 100px;
+        }
+
+        #button input {
+            width: 60px;
+            position: relative;
+            left: 30%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../helpcenter/static/images/favicon.jpg"></link>
+    <title>学习平台-用户帮助中心</title>
+    <!--公共js，包括获得项目根路径等等-->
+    <script type="text/javascript" src="../../helpcenter/static/common.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../../helpcenter/static/css/bootstrap.min.css"></link>
+    <!--表单table处理-->
+    <link rel="stylesheet" href="../../helpcenter/static/bootstrap3-editable/css/bootstrap-editable.css"></link>
+    <link rel="stylesheet" href="../../helpcenter/static/login/bootstrap-table.css"/>
+    <link rel="stylesheet" href="../../helpcenter/static/login/editable-element.css"/>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link type="text/css" href="../../helpcenter/static/docs/assets/css/ie10-viewport-bug-workaround.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="../../helpcenter/static/css/style.css">
+    <!-- Custom styles for this template -->
+    <link href="../../helpcenter/static/docs/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../helpcenter/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/html2canvas.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/index.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/message.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/aes.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/pad-nopadding-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/mode-ecb-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/editable-element.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie8-responsive-file-warning.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/addrbar/bootstrap-table-addrbar.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--退出登陆-->
+    <link href="../../helpcenter/static/login/login-register.css" rel="stylesheet"/>
+    <script src="../../helpcenter/static/login/login-register.js" type="text/javascript"></script>
+    <!--[if lt IE 9]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/respond.min.js"></script>
+    <!--时间选择器相关js和cs-->
+    <!-- 时间选择器样式表 -->
+    <link href="../../helpcenter/static/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <!-- 时间选择器前置脚本 -->
+    <script src="../../helpcenter/static/login/moment-with-locales.min.js"></script>
+    <!-- 时间选择器核心脚本 -->
+    <script src="../../helpcenter/static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/login/bootstrap-editable.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/editable/bootstrap-table-editable.js"></script>
+    <!--bootstrap中文包避免后台返回给前台数据中文乱码-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/jquery.base64.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/tableExport.js"></script>
+    <!--最后引用的公共js建立在应用了其他js的基础之上引用的-->
+    <script type="text/javascript" src="../../helpcenter/static/js/lastCommon.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+    <script src="../../helpcenter/static/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+    <script src="../../helpcenter/static/vakata-jstree/vakata-jstree-bc5187e/src/jstree.js"
+            type="text/javascript"></script>
+    <script src="../../helpcenter/static/vakata-jstree/vakata-jstree-bc5187e/src/intro.js"
+            type="text/javascript"></script>
+    <script src="../../helpcenter/static/js/lastCommon.js"
+            type="text/javascript"></script>
+    <link href="../../helpcenter/static/win/window/window.css" rel="stylesheet">
+    <script src="../../helpcenter/static/win/window/window.js"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <span id="uu" hidden="hidden">${sessionScope.sessionUserId}</span>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/helpcenter/" style="font-size: 32px;line-height: 25px;">学习平台-帮助信息管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a onclick="loginUpdAjax()">修改密码</a></li>
+                <li><a onclick="loginOutAjax()">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="detailQuestionReplyDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="detailMyQuestionModalLabel">
+                    问题回复信息详情
+                </h4>
+            </div>
+            <div class="">
+                <div class="modal-header"
+                     style="">
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="detail_id" id="detail_id_lable"
+                                       class="control-label">回复id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="detail_id" name="detail_id"
+                                       readonly="readonly"  style="width:72%">
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_question_content" class="control-label">问题内容:</label>
+                                <textarea type="text" id="detail_question_content" name="detail_question_content"
+                                          style="width: 72%; height: 60%;"  readonly="readonly"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="detail_reply_content" class="control-label">回复详情:</label>
+                                <textarea type="text" id="detail_reply_content" name="detail_reply_content"
+                                          style="width: 72%; height: 60%;" readonly="readonly"></textarea>
+                                <input type="text" id="old_detail_reply_content" name="old_detail_reply_content"
+                                       hidden="hidden"  style="width:72%">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="detail_question_status" class="control-label" style="width:20%">问题有效标志:</label>
+                                <select id="detail_question_status" name="detail_question_status" value="${detail_question_status}" style="width: 18.5%;" disabled="disabled">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                                <label for="detail_reply_status" class="control-label" style="width:28%">回复有效标志:</label>
+                                <select id="detail_reply_status" name="detail_reply_status" value="${detail_reply_status}" style="width: 18.5%;" disabled="disabled">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="detailMyQuestionButton" hidden="hidden" onclick="updSave()">保存</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menuDiv">
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="/helpcenter/" style="font-size:30px">首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row placeholders">
+                <div class="col-sm-12">
+                    <form class="form-inline query_ipt">
+                        <div class="row">
+                            <div class="col-sm-10" align="left">
+                                <form id="queryinput">
+                                    <tr align="left"><span class="form_til">创建时间</span></td>
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_begin" name="creat_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_end" name="creat_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">用&nbsp;&nbsp;户&nbsp;&nbsp;号</span></td>
+                                        <td><input type="text" class=" input-sm" id="user_id" name="user_id"
+                                                   placeholder="请输入用户号"></td>
+                                    </tr>
+                                    <br>
+                                    <tr align="left">
+                                        <span class="form_til">更新时间</span>
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_begin" name="update_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+                                        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_end" name="update_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">有效标志</span></td>
+                                        <td><select id="selest_status" name="selest_status" value="${selest_status}"
+                                                    style="width:8.5%;">
+                                            <option value=''>请选择</option>
+                                            <option value='0'>有效</option>
+                                            <option value='1'>无效</option>
+                                        </select></td>
+                                    </tr>
+                                </form>
+                            </div>
+                            <div class="col-sm-2" align="left">
+                                <button type="button" class="btn btn-primary"
+                                        onclick="queryList()">查询
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 class="sub-header">问题汇总信息</h2>
+            <div id="toolbar">
+                <button id="btn_add" type="button" class="btn btn-default" onclick="addQuestion();">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                </button>
+                <!--<button id="btn_upload" type="button" class="btn btn-default" onclick="batchUploadShow();">-->
+                <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传-->
+                <!--</button>-->
+                <button id="btn_edit" type="button" class="btn btn-default" onclick="editQuestion();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
+                </button>
+                <button id="btn_delete" type="button" class="btn btn-default" onclick="delQuestion();">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>选择删除
+                </button>
+            </div>
+            <div>
+                <!-- /.问题回复信息汇总信息列表 -->
+                <table id="questionBasisReplyTable" class="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updPassWdDiv">
+</div>
+
+</body>
+<script>
+    //全局的类别json对象
+    var arrQuestionJson = [];
+    //tree change时事件
+    $('#questionTree').on("changed.jstree", function (e, data) {
+        var sonJson = getInputWithJson(data.node.id);
+        $("#id").val(sonJson.id);
+        $("#question_type_id").val(sonJson.id);
+        $("#question_type_id_label").html("类别id");
+        document.getElementById("question_pid").readOnly = false;
+        $("#question_pid").val(sonJson.parentId);
+        $("#name").val(sonJson.name);
+        $("#oldname").val(sonJson.name);
+        $("#status").val(sonJson.status);
+    });
+    $('#detailQuestionReplyDiv').modal('hide');
+
+
+    /*更新问题回复信息*/
+    function updSave() {
+        var code = $("#detail_id").val();
+        if ("" == code || null == code) {
+            alertWarning('提示信息：本条回复信息有误！');
+            return;
+        }
+        var oldReplyContent = $("#old_detail_reply_content").val();
+        if(oldReplyContent.length >8){
+            oldReplyContent = oldReplyContent.substring(0,9)+"...";
+        }
+        win.confirm('系统提示', '警告！您确定要修改这条原回复信息概要为！【' + oldReplyContent + '】的信息么？', function (r) {
+            if (!r) {
+                return;
+            }
+            var replyContent = $("#detail_reply_content").val();
+            var replyStatus = $("#detail_reply_status").val();
+            var id = $("#detail_id").val();
+            var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+            // Encrypt
+            //把私钥转换成16进制的字符串
+            var encrypted = CryptoJS.AES.encrypt(id, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            id = encrypted.toString();
+            $.ajax({
+                type: "POST",
+                url: "webApp/updQuestionReply",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": id,
+                    "reply_content": replyContent,
+                    "status": replyStatus
+                }),
+                success: function (data, status) {
+                    var jsonObj = JSON.parse(data);
+                    if (status == "success" && jsonObj.code == "1000") {
+                        $('#detailQuestionReplyDiv').modal('hide');
+                        $("#questionBasisReplyTable").bootstrapTable('refresh');
+                    } else if (jsonObj.code == "9999") {
+                        /*session超时*/
+                        loginOutAjax();
+                    }
+                },
+                error: function () {
+                    alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                },
+                complete: function () {
+                }
+            });
+        });
+    }
+</script>
+<script type="text/javascript">
+    /*初始化时间控制输入框*/
+    $("#creat_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*初始化时间控制输入框*/
+    $("#creat_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+
+    /*更新时间控制输入框*/
+    $("#update_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*更新时间控制输入框*/
+    $("#update_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+
+    $("#creat_dt_begin").datetimepicker("update", '2000-01-01');
+    $("#creat_dt_end").datetimepicker('setDate', (new Date()));
+    $("#update_dt_begin").datetimepicker("update", '2019-01-01');
+    $("#update_dt_end").datetimepicker('setDate', (new Date()));
+    $('#questionTypeModal').modal('hide');
+    $('#detailQuestionReplyDiv').modal('hide');
+
+    /*打开新增问题页面*/
+
+    function addQuestion() {
+        alertSixInfo("消息提醒: 请到问题信息页面-针对单个问题进行回复录入。")
+    }
+
+    function editQuestion() {
+        var rows = $("#questionBasisReplyTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            $("#detail_id").val(aesDeciphering(rows[0].id));
+            $("#detail_reply_status").val(rows[0].reply_status);
+            $("#detail_question_status").val(rows[0].question_status);
+            $("#detail_reply_content").val(rows[0].reply_content);
+            $("#old_detail_reply_content").val(rows[0].reply_content);
+            $("#detail_question_content").val(rows[0].question_content);
+            $("#detailMyQuestionModalLabel").html("修改问题信息");
+            document.getElementById("detail_question_content").disabled = "disabled";
+            document.getElementById("detail_reply_content").readOnly = false;
+            document.getElementById("detail_question_status").disabled = "disabled";
+            document.getElementById("detail_reply_status").disabled = "";
+            document.getElementById("detail_id").readOnly = false;
+            $('#detailQuestionReplyDiv').modal('show');
+            $("#detailMyQuestionButton").show();
+
+
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行编辑操作。")
+        }
+    }
+
+    function delQuestion() {
+        var rows = $("#questionBasisReplyTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            var id = rows[0].id;
+            if ("" == id || null == id) {
+                alertWarning('提示信息：请选择一个问题信息！');
+                return;
+            }
+            var name = rows[0].reply_content_short;
+            win.confirm('系统提示', '警告！您确定要删除这条回复概要为！【' + name + '】的信息么？注意：此举不可恢复。', function (r) {
+                if (!r) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "webApp/delQuestionReply",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "id": id
+                    }),
+                    success: function (data, status) {
+                        var jsonObj = JSON.parse(data);
+                        if (status == "success" && jsonObj.code == "1000") {
+                            alertSuccess('提示信息：操作成功！');
+                            $("#questionBasisReplyTable").bootstrapTable('refresh');
+                        } else if (jsonObj.code == "9999") {
+                            /*session超时*/
+                            loginOutAjax();
+                        }
+                    },
+                    error: function () {
+                        alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                    },
+                    complete: function () {
+                    }
+                });
+            });
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行删除操作。")
+        }
+    }
+
+    function queryList() {
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            return;
+        }
+        $("#questionBasisReplyTable").bootstrapTable('refresh');
+    }
+
+
+    //初始化得到查询的参数
+    function queryParams(params) {
+        var userId = $("#user_id").val();
+        if (null == userId || userId.length == 0) {
+            /*如下表示用户号不作为查询条件*/
+            userId = "1122-zzii122.11kkqqlloo";
+        }
+        var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+        // Encrypt
+        //把私钥转换成16进制的字符串
+        var encrypted = CryptoJS.AES.encrypt(userId, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        userId = encrypted.toString();
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        var status = $("#selest_status").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                // limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                pageSize: this.pageSize,
+                pageNumber: this.pageNumber
+            };
+            return temp;
+        }
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            // limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            pageSize: this.pageSize,
+            pageNumber: this.pageNumber,
+            qrytype: "9aoGYpBm/GU=", /*查询问题回复信息类型1111*/
+            userid: userId,
+            status: status,
+            qrytmbegin: creat_dt_begin,
+            qrytmend: creat_dt_end,
+            qrytmbeginupd: update_dt_begin,
+            qrytmendupd: update_dt_end,
+            length: 6
+        };
+        return temp;
+    };
+
+
+    //查询个人问题基本信息表
+    $('#questionBasisReplyTable').bootstrapTable({
+        url: "webApp/queryQuestionReply",
+        method: 'post',
+        dataType: "json",
+        queryParams: queryParams,
+        classes: 'table',//边框
+        undefinedText: '',//当数据为 undefined 时显示的字符
+        sortable: true,
+        pagination: true,//启动分页
+        paginationLoop: true,
+        pageNumber: 1,
+        pageSize: 10,
+        pageList: [1, 5, 10, 20, 100],
+        striped: true,
+        showColumns: true,  //显示下拉框勾选要显示的列
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        showRefresh: true,  //显示刷新按钮
+        showToggle: true,//显示一行是否改成竖着
+        showPaginationSwitch: true,//是否显示 下面的分页框
+        height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        search: false, //显示搜索框
+        detailView: true,
+        toolbal: '#toolbar',
+        detailFormatter: function (index, row) {
+            return JSON.stringify(row);
+        },
+        columns: [{
+            field: 'checkbox',
+            title: 'checkbox',
+            checkbox: true
+        }, {
+            field: 'number',
+            title: '序号',
+            formatter: function (value, row, index) {
+                return index + 1;
+            }
+        }, {
+            field: 'id',
+            title: '回复id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+
+        }, {
+            field: 'question_id',
+            title: '问题id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+
+        }, {
+            field: 'user_id',
+            title: '用户id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+        }, {
+            field: 'question_content_short',
+            title: '问题内容概述',
+            align: 'center',
+            height: '28px'
+        }, {
+            field: 'question_content',
+            title: '',
+            align: 'center'
+        }, {
+            field: 'question_keywords',
+            title: '问题关键字',
+            align: 'center'
+
+        }, {
+            field: 'question_status',
+            title: '问题是否有效标志',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return configStatusType(value);
+            }
+        }, {
+            field: 'question_type_id',
+            title: '问题类别id',
+            align: 'center'
+        }, {
+            field: 'question_type_name',
+            title: '问题类别名字',
+            align: 'center'
+        }, {
+            field: 'reply_status',
+            title: '回复生效标识',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return configStatusType(value);
+            }
+        }, {
+            field: 'reply_content_short',
+            title: '回复内容概述',
+            align: 'center'
+        }, {
+            field: 'reply_content',
+            title: '',
+            align: 'center'
+        }, {
+            field: 'ip',
+            title: '操作用户ip',
+            align: 'center'
+        }, {
+            field: 'creation_tm',
+            title: '回复创建时间',
+            align: 'center'
+        }, {
+            field: 'update_tm',
+            title: '回复更新时间',
+            align: 'center'
+        }],
+        onLoadSuccess: function (data) {
+            $('#questionBasisReplyTable').bootstrapTable('hideColumn', 'reply_content');// 设置隐藏列
+            $('#questionBasisReplyTable').bootstrapTable('hideColumn', 'question_content');// 设置隐藏列
+            if (data.code == "1005") {
+                alertWarning('消息提醒：数据为空！');
+                $('#questionBasisReplyTable').bootstrapTable('load', {total: 0, rows: []});
+                // $('#questionBasisReplyTable').bootstrapTable('destroy');
+            } else if (data.code == "9999") {
+                /*session超时*/
+                loginOutAjax();
+            } else if (data.code != "1000") {
+                alertWarning('提示信息：查询失败！');
+                $('#questionBasisReplyTable').bootstrapTable('load', {total: 0, rows: []});
+            }
+        },
+        onLoadError: function () {
+            alertWarning('提示信息：数据加载失败！');
+        },
+        onDblClickRow: function (contentlist, $element) {
+            var questionContent = contentlist.question_content;
+            var replyContent = contentlist.reply_content;
+            // alertTwelveInfo('问题详情：【' + questionContent+'】'+'\n\n\n'+'回复详情：【'+replyContent+ '】');
+            $("#detailMyQuestionModalLabel").html("问题回复详细信息");
+            document.getElementById("detail_id").disabled = "disabled";
+            document.getElementById("detail_question_content").readOnly = true;
+            document.getElementById("detail_reply_content").readOnly = true;
+            document.getElementById("detail_question_status").disabled = "disabled";
+            document.getElementById("detail_reply_status").disabled = "disabled";
+            $("#detail_question_content").val(contentlist.question_content);
+            $("#detail_id").val(aesDeciphering(contentlist.id));
+            $("#detail_reply_content").val(contentlist.reply_content);
+            $("#detail_question_status").val(contentlist.question_status);
+            $("#detail_reply_status").val(contentlist.reply_status);
+            $("#detailMyQuestionButton").hide();
+            $('#detailQuestionReplyDiv').modal('show');
+            /*这里是点击每行数据触发事件*/
+            // var id = contentlist.id;
+            // var total = contentlist.total;
+            // EditViewById(id, 'view');
+        },
+        showExport: phoneOrPc(),              //是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回falsee,手机不显示按钮)
+        exportDataType: "basic",              //basic', 'all', 'selected'.
+        exportTypes: ['excel', 'xlsx'],	    //导出类型
+        //exportButton: $('#btn_export'),     //为按钮btn_export  绑定导出事件  自定义导出按钮(可以不用)
+        exportOptions: {
+            //ignoreColumn: [0,0],            //忽略某一列的索引
+            fileName: '数据导出',              //文件名称设置
+            worksheetName: 'Sheet1',          //表格工作区名称
+            tableName: 'integration_basis',
+            excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
+        }
+    });
+
+
+    /*判断终端是手机还是电脑--用于判断文件是否导出(电脑需要导出)*/
+    function phoneOrPc() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $.get("menu.html", function (mdata) {
+        $("#menuDiv").html(mdata);
+    });
+    $.get("updpass.html", function (mdata) {
+        $("#updPassWdDiv").html(mdata);
+    })
+</script>
+</html>

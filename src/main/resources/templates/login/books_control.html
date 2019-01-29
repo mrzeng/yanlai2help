@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        /*左侧菜单条目鼠标滑过之后变大*/
+        .menu-a {
+            font-size: 16px;
+        }
+
+        .menu-a:hover {
+            font-size: 18px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../helpcenter/static/images/favicon.jpg"></link>
+    <title>学习平台-用户帮助中心</title>
+    <!--公共js，包括获得项目根路径等等-->
+    <script type="text/javascript" src="../../helpcenter/static/common.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../../helpcenter/static/css/bootstrap.min.css"></link>
+    <!--表单table处理-->
+    <link rel="stylesheet" href="../../helpcenter/static/bootstrap3-editable/css/bootstrap-editable.css"></link>
+    <link rel="stylesheet" href="../../helpcenter/static/login/bootstrap-table.css"/>
+    <link rel="stylesheet" href="../../helpcenter/static/login/editable-element.css"/>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link type="text/css" href="../../helpcenter/static/docs/assets/css/ie10-viewport-bug-workaround.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="../../helpcenter/static/css/style.css">
+    <!-- Custom styles for this template -->
+    <link href="../../helpcenter/static/docs/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../helpcenter/static/login/index.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/message.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/aes.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/pad-nopadding-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/mode-ecb-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/editable-element.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie8-responsive-file-warning.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/addrbar/bootstrap-table-addrbar.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--退出登陆-->
+    <script src="../../helpcenter/static/login/login-register.js" type="text/javascript"></script>
+    <!--[if lt IE 9]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/respond.min.js"></script>
+    <!--时间选择器相关js和cs-->
+    <!-- 时间选择器样式表 -->
+    <link href="../../helpcenter/static/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <!-- 时间选择器前置脚本 -->
+    <script src="../../helpcenter/static/login/moment-with-locales.min.js"></script>
+    <!-- 时间选择器核心脚本 -->
+    <script src="../../helpcenter/static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/login/bootstrap-editable.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/editable/bootstrap-table-editable.js"></script>
+    <!--bootstrap中文包避免后台返回给前台数据中文乱码-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <!--最后引用的公共js建立在应用了其他js的基础之上引用的-->
+    <script src="../../helpcenter/static/js/lastCommon.js"
+            type="text/javascript"></script>
+    <link href="../../helpcenter/static/win/window/window.css" rel="stylesheet">
+    <link href="window/window.css" rel="stylesheet"/>
+    <script src="../../helpcenter/static/win/window/window.js"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <span id="uu" hidden="hidden">${sessionScope.sessionUserId}</span>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/helpcenter/" style="font-size: 32px;line-height: 25px;">学习平台-积分管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a onclick="loginUpdAjax()">修改密码</a></li>
+                <li><a onclick="loginOutAjax()">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="detailPreliminaryDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                </button>
+                <h4 class="modal-title" id="detailMyQuestionModalLabel">
+                    入门相关附件修改
+                </h4>
+            </div>
+            <div class="">
+                <div class="modal-header"
+                     style="">
+                    <div class="modal-body">
+                        <form id="Form" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="detail_preliminary_id" id="detail_preliminary_id_lable"
+                                       class="control-label">入门信息id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="detail_preliminary_id" name="detail_preliminary_id"
+                                       readonly="readonly" style="width:72%">
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_preliminary_name" class="control-label">入门信息描述:</label>
+                                <textarea type="text" id="detail_preliminary_name" name="detail_preliminary_name"
+                                          style="width: 72%; height: 60%;" readonly="readonly"></textarea>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <label for="id" id="id_lable"
+                                       class="control-label">当前附件id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="id" name="id"
+                                       readonly="readonly" style="width:72%">
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_file_name" class="control-label">源文件名称:</label>
+                                <textarea type="text" id="detail_file_name" name="detail_file_name"
+                                          style="width: 72%; height: 60%;" readonly="readonly"></textarea>
+                                <button type="button" align="right" aria-hidden="true" onclick="view()">源文件路径:</button>
+                                <input type="text" id="file_path" name="file_path"
+                                       readonly="readonly" style="width:72%">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">选择新文件:</label>
+                                <br>
+                                <tr>
+                                    <td style="text-align: left;padding-left:20px">
+                                        <input type="file" id="file_self" name="file_self" onchange="fileType(this)"
+                                               style="width:120%"/>
+                                    </td>
+                                </tr>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_preliminary_status" class="control-label"
+                                       style="width:20%">文件有效标志:</label>
+                                <select id="detail_preliminary_status" name="detail_preliminary_status"
+                                        value="${detail_preliminary_status}" style="width: 18.5%;" disabled="disabled">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group" id="detail_fil_path_div">
+                                <input type="text" id="detail_fil_path" name="detail_fil_path"
+                                       readonly="readonly" style="width:72%" disabled="disabled">
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_fil_size" id="detail_fil_size_lable"
+                                       class="control-label">文件大小(兆)</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="detail_fil_size" name="detail_fil_size"
+                                       readonly="readonly" style="width:28%">
+                                <label for="detail_fil_type" id="detail_fil_type_lable"
+                                       class="control-label">文件格式</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="detail_fil_type" name="detail_fil_type"
+                                       readonly="readonly" style="width:28%">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="addBookButton"
+                                        onclick="editSaveBook()">保存
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menuDiv">
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="/helpcenter/" style="font-size:30px">首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row placeholders">
+                <div class="col-sm-12">
+                    <form class="form-inline query_ipt">
+                        <div class="row">
+                            <div class="col-sm-10" align="left">
+                                <form id="queryinput">
+
+                                    <tr align="left"><span class="form_til">创建时间</span></td>
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_begin" name="creat_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_end" name="creat_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">有效标志</span></td>
+                                        <td><select id="selest_status" name="selest_status" value="${selest_status}"
+                                                    style="width:8.5%;">
+                                            <option value=''>请选择</option>
+                                            <option value='0'>有效</option>
+                                            <option value='1'>无效</option>
+                                        </select></td>
+                                    </tr>
+                                    <br>
+                                    <tr align="left">
+                                        <span class="form_til">更新时间</span>
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_begin" name="update_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+                                        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_end" name="update_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+
+                                    </tr>
+                                </form>
+                            </div>
+                            <div class="col-sm-2" align="left">
+                                <button type="button" class="btn btn-primary"
+                                        onclick="queryList()">查询
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 class="sub-header">入门手册列表</h2>
+            <div id="toolbar">
+                <!--<button id="btn_upload" type="button" class="btn btn-default" onclick="batchUploadShow();">-->
+                <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传-->
+                <!--</button>-->
+                <button id="btn_edit" type="button" class="btn btn-default" onclick="editPreliminaryBook();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
+                </button>
+                <button id="btn_delete" type="button" class="btn btn-default" onclick="delBooks();">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>选择删除
+                </button>
+                <button id="btn_add1" type="button" class="btn btn-default" onclick="addBooks();">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增手册
+                </button>
+            </div>
+
+            <div>
+                <!-- /.积分变更日志显示位置 -->
+                <table id="booksTable" class="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updPassWdDiv">
+</div>
+</body>
+<script src="../../helpcenter/static/login/file-input.js"></script>
+<script>
+
+    function view() {
+        //查看附件
+        var path = $("#file_path").val();
+        if (path == null) {
+            alertWarning("消息提示:源文件路径为空");
+            return;
+        }
+        alertSixInfo("本地路径:" + path);
+    }
+
+    /*打开修改手册页面*/
+    function editPreliminaryBook() {
+        var rows = $("#booksTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            $("#detail_preliminary_id").val(aesDeciphering(rows[0].preliminary_id));
+            $("#id").val(aesDeciphering(rows[0].id));
+            $("#detail_preliminary_name").val(rows[0].preliminary_name);
+            $("#detail_file_name").val(rows[0].name);
+            $("#file_path").val(rows[0].manual_path + aesDeciphering(rows[0].id) + rows[0].manual_type);
+            $("#detail_file_name").val(rows[0].name);
+            $("#detail_file_name").val(rows[0].name);
+            $("#detail_preliminary_status").val("");
+            $("#detail_fil_path").val("");
+            $("#detail_fil_size").val("");
+            $("#detail_fil_type").val("");
+            document.getElementById("detail_preliminary_status").disabled = "";
+            document.getElementById("detail_preliminary_id").disabled = "disabled";
+            document.getElementById("detail_preliminary_name").disabled = "disabled";
+            $('#detailPreliminaryDiv').modal('show');
+            $("#addBookButton").show();
+            $("#detailMyQuestionModalLabel").html("入门手册修改");
+            document.getElementById("detail_fil_path_div").setAttribute("style", "display:none");
+
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行手册信息进行修改。")
+        }
+    }
+
+
+    //保存
+    function editSaveBook() {
+        if ($("#file_self").val() == ""
+            || document.getElementById("file_self").files[0] == '请选择文件') {
+            alertWarning("请选择文件");
+            return false;
+        }
+        mysubmitVideoOrBook(document.getElementById("file_self"), "0");
+    }
+
+
+    function mysubmitVideoOrBook(obj, type) {
+        if (!getSize(obj)) {
+            return;
+        }
+        var filePath = getPath(obj);
+        var sprit = "\\";
+        var isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+        if (isMac) {
+            sprit = "/";
+        }
+        var fileName = obj.value.substr(obj.value.lastIndexOf(sprit) + 1, obj.value.lastIndexOf("."));
+        var code = $("#id").val();
+        if ("" == code || null == code) {
+            alertWarning('提示信息：本条附件信息有误！请修改其他附件信息！');
+            return;
+        }
+        if ("" == obj.value || null == obj.value) {
+            alertWarning('提示信息：文件名字不能为空！');
+            return;
+        }
+        var detailPreliminaryStatus = $("#detail_preliminary_status").val();
+        var detailFilSizeLable = $("#detail_fil_size").val();
+        var detailFilTypeLable = $("#detail_fil_type").val();
+        var detail_file_name = $("#detail_file_name").val();
+        if (detail_file_name.length > 8) {
+            detail_file_name = detail_file_name.substring(0, 9) + "...";
+        }
+        var typeName = "手册";
+        var fileType = obj.value.substr(obj.value.lastIndexOf("."));
+        var updUrl = "updVideos";
+        if ("1" == type) {
+            typeName = "视频";
+            if (fileType != '.WMV' && fileType != '.wmv' && fileType != '.AVI' && fileType != '.mov' && fileType != '.rmvb' && fileType != '.rm'
+                && fileType != '.FLV' && fileType != '.mp4' && fileType != '.3GP' && fileType != '.avi'
+                && fileType != '.MOV' && fileType != '.RMVB' && fileType != '.RM' && fileType != '.flv'
+                && fileType != '.MP4' && fileType != '.3gp') {
+                alertWarning('提示信息：对不起，您上传的文件格式不是常见视频格式！');
+                return;
+            }
+        } else if ("0" == type) {
+            updUrl = "updBooks";
+            if (fileType != '.TXT' && fileType != '.DOC' && fileType != '.PDF' && fileType != '.pdf'
+                && fileType != '.XLS' && fileType != '.PPT' && fileType != '.DOCX' && fileType != '.XLSX'
+                && fileType != '.PPTX' && fileType != '.txt' && fileType != '.doc' && fileType != '.xls'
+                && fileType != '.ppt' && fileType != '.docx' && fileType != '.xlsx' && fileType != '.pptx') {
+                alertWarning('提示信息：对不起，您上传的文件格式不是常见文档格式！');
+                return;
+            }
+        }
+        win.confirm('系统提示', '警告！您确定要修改附件！【' + detail_file_name + '】么？', function (r) {
+            if (!r) {
+                return;
+            }
+            var id = $("#id").val();
+            var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+            // Encrypt
+            //把私钥转换成16进制的字符串
+            var encrypted = CryptoJS.AES.encrypt(id, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            id = encrypted.toString();
+            var form = document.getElementById('Form'),
+                formData = new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: "webApp/addFile?type=1",
+                processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
+                contentType: false,  //必须false才会自动加上正确的Content-Type
+                data: formData,
+                success: function (data, status) {
+                    var encrypted = CryptoJS.AES.encrypt(data.id, key, {
+                        mode: CryptoJS.mode.ECB,
+                        padding: CryptoJS.pad.Pkcs7
+                    });
+                    var file_id = encrypted.toString();
+                    // var jsonObj = JSON.parse(data);
+                    if (data.code == "1000") {
+                        $.ajax({
+                            type: "POST",
+                            url: "webApp/" + updUrl + "",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                "id": file_id,
+                                "preliminaryid": id,
+                                "file_name": fileName,
+                                "file_type": detailFilTypeLable,
+                                "file_size": detailFilSizeLable,
+                                "file_path": data.file_path,
+                                "status": detailPreliminaryStatus
+
+                            }),
+                            success: function (data, status) {
+                                var jsonObj = JSON.parse(data);
+                                if (status == "success" && jsonObj.code == "1000") {
+                                    $('#detailPreliminaryDiv').modal('hide');
+                                    alertInfo('修改成功。');
+                                    $("#booksTable").bootstrapTable('refresh');
+                                } else if (jsonObj.code == "9999") {
+                                    /*session超时*/
+                                    loginOutAjax();
+                                } else if (jsonObj.code == "1001") {
+                                    /*session超时*/
+                                    alertInfo('提示信息：操作失败。');
+                                }
+                            },
+                            error: function () {
+                                alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                            },
+                            complete: function () {
+                            }
+                        });
+                    } else if (jsonObj.code == "9999") {
+                        /*session超时*/
+                        loginOutAjax();
+                    }
+                },
+                error: function () {
+                    alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                },
+                complete: function () {
+                }
+            });
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    /*初始化时间控制输入框*/
+    $("#creat_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*初始化时间控制输入框*/
+    $("#creat_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*更新时间控制输入框*/
+    $("#update_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*更新时间控制输入框*/
+    $("#update_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+
+    $("#creat_dt_begin").datetimepicker("update", '2000-01-01');
+    $("#creat_dt_end").datetimepicker('setDate', (new Date()));
+    $("#update_dt_begin").datetimepicker("update", '2019-01-01');
+    $("#update_dt_end").datetimepicker('setDate', (new Date()));
+
+    function queryList() {
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            return;
+        }
+        $("#booksTable").bootstrapTable('refresh');
+    }
+
+    /*删除用户手册信息*/
+    function delBooks() {
+        var rows = $("#booksTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            var id = rows[0].id;
+            if ("" == id || null == id) {
+                alertWarning('提示信息：请选择一个视频信息！');
+                return;
+            }
+            var preliminaryId = rows[0].preliminary_id;
+            var name = rows[0].name;
+            win.confirm('系统提示', '警告！您确定要删除这条名称为【' + name + '】的手册信息么？注意：此举不可恢复。', function (r) {
+                if (!r) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "webApp/delBooks",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "id": id,
+                        "preliminaryid": preliminaryId
+                    }),
+                    success: function (data, status) {
+                        var jsonObj = JSON.parse(data);
+                        if (status == "success" && jsonObj.code == "1000") {
+                            alertSuccess('提示信息：操作成功！');
+                            $("#booksTable").bootstrapTable('refresh');
+                        } else if (jsonObj.code == "9999") {
+                            /*session超时*/
+                            loginOutAjax();
+                        }
+                    },
+                    error: function () {
+                        alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                    },
+                    complete: function () {
+                    }
+                });
+            });
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行删除操作。")
+        }
+    }
+
+    //用户点击新增手册信息
+    function addBooks() {
+        alertSixInfo("消息提醒: 请到入门信息页面添加入门手册。")
+    }
+
+
+    //初始化得到查询的参数
+    function queryParams(params) {
+        var userId = $("#id").val();
+        if (null == userId || userId.length == 0) {
+            /*如下表示用户号不作为查询条件*/
+            userId = "1122-zzii122.11kkqqlloo";
+        }
+        var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+        // Encrypt
+        //把私钥转换成16进制的字符串
+        var encrypted = CryptoJS.AES.encrypt(userId, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        userId = encrypted.toString();
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        var status = $("#selest_status").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            var temp = {
+                offset: params.offset,  //页码
+                pageSize: this.pageSize,
+                pageNumber: this.pageNumber
+            };
+            return temp;
+        }
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            // limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            pageSize: this.pageSize,
+            pageNumber: this.pageNumber,
+            qrytype: "xOooIe4nuuM=", /*查询手册列表30000类型*/
+            userid: userId,
+            qrytmbegin: creat_dt_begin,
+            qrytmend: creat_dt_end,
+            qrytmbeginupd: update_dt_begin,
+            qrytmendupd: update_dt_end,
+            status: status,
+            length: 6
+        };
+        return temp;
+    }
+
+
+    //查询课程积分列表
+    $('#booksTable').bootstrapTable({
+        url: "webApp/queryBooks",
+        method: 'post',
+        dataType: "json",
+        queryParams: queryParams,
+        classes: 'table',//边框
+        undefinedText: '',//当数据为 undefined 时显示的字符
+        pagination: true,//启动分页
+        paginationLoop: true,
+        pageNumber: 1,
+        pageSize: 10,
+        pageList: [1, 5, 10, 20],
+        striped: true,
+        showColumns: true,  //显示下拉框勾选要显示的列
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        showRefresh: true,  //显示刷新按钮
+        showToggle: true,//显示一行是否改成竖着
+        showPaginationSwitch: true,//是否显示 下面的分页框
+        height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        search: false, //显示搜索框
+        detailView: true,
+        toolbal: '#toolbar',
+        detailFormatter: function (index, row) {
+            return JSON.stringify(row);
+        },
+        columns: [{
+            field: 'checkbox',
+            title: 'checkbox',
+            checkbox: true
+        }, {
+            field: 'number',
+            title: '序号',
+            formatter: function (value, row, index) {
+                return index + 1;
+            }
+        }, {
+            field: 'id',
+            title: '手册id',
+            align: 'center',
+            hidden: true,
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+        }, {
+            field: 'name',
+            title: '手册名称',
+            align: 'center'
+        }, {
+            field: 'preliminary_id',
+            title: '入门id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+
+        }, {
+            field: 'preliminary_name',
+            title: '入门描述',
+            align: 'center'
+        }, {
+            field: 'manual_path',
+            title: '手册路径',
+            align: 'left'
+        }, {
+            field: 'manual_type',
+            title: '手册格式',
+            align: 'left'
+        }, {
+            field: 'manual_size',
+            title: '手册大小（兆）',
+            align: 'left'
+        }, {
+            field: 'status',
+            title: '是否有效',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return configStatusType(value);
+            }
+        }, {
+            title: '更新时间',
+            field: 'update_tm',
+            align: 'center'
+        }, {
+            title: '创建时间',
+            field: 'creation_tm',
+            align: 'center'
+        }],
+        onLoadSuccess: function (data) {
+            if (data.code == "1005") {
+                alertWarning('提示信息：数据为空！');
+                $('#booksTable').bootstrapTable('load', {total: 0, rows: []});
+                // $('#booksTable').bootstrapTable('destroy');
+            } else if (data.code == "9999") {
+                /*session超时*/
+                loginOutAjax();
+            } else if (data.code != "1000") {
+                alertWarning('提示信息：查询失败！');
+                $('#booksTable').bootstrapTable('load', {total: 0, rows: []});
+            }
+        },
+        onLoadError: function () {
+            alertWarning('提示信息：数据加载失败！');
+        },
+        onDblClickRow: function (contentlist, $element) {
+            // var rootPath = "file://";
+            var rootPath = "";
+            if (!(/windows|win32/i.test(navigator.userAgent))) {
+                //如果不是windows,就不需要拼接本地路径
+                rootPath = "";
+            }
+            alertSixInfo("本地路径:"+contentlist.manual_path + aesDeciphering(contentlist.id) + contentlist.manual_type);
+
+            // window.open(realPath + contentlist.manual_path.substr(contentlist.manual_path.lastIndexOf("/")) + "/" + aesDeciphering(contentlist.id) + contentlist.manual_type, '阅览附件', 'left=410,height=610, width=860, top=200,  ' +
+            //     'toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+            // D:\workspace2\helpcenter\src\main\resources\videosAndBooks\20190124123954662610.txt
+            // window.open("../../helpcenter/videosAndBooks/"+aesDeciphering(contentlist.id) + contentlist.manual_type, '阅览附件', 'left=410,height=610, width=860, top=200,  ' +
+            //     'toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+            // window.open("../../helpcenter/videosAndBooks/20190124123954662610.txt", '阅览附件', 'left=410,height=610, width=860, top=200,  ');
+            <!-- 时间选择器样式表 -->
+        // <link href="../../helpcenter/static/css/bootstrap-datetimepicker.min.css"
+        //     rel="stylesheet">
+            /*这里是点击每行数据触发事件*/
+            // var id = contentlist.id;
+            // var total = contentlist.total;
+            // EditViewById(id, 'view');
+        }
+    });
+</script>
+<script type="text/javascript">
+    $.get("menu.html", function (mdata) {
+        $("#menuDiv").html(mdata);
+    });
+    $.get("updpass.html", function (mdata) {
+        $("#updPassWdDiv").html(mdata);
+    })
+</script>
+</html>
+
+
+
+

@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        /*左侧菜单条目鼠标滑过之后变大*/
+        .menu-a {
+            font-size: 16px;
+        }
+
+        .menu-a:hover {
+            font-size: 18px;
+        }
+
+        .th {
+            height: 40px;
+            width: 50%;
+            text-align: right;
+        }
+
+        td {
+            height: 40px;
+            width: 50%;
+            text-align: left;
+        }
+
+        form fieldset {
+            border: 0;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+        }
+
+        input {
+            width: 100px;
+        }
+
+        #button input {
+            width: 60px;
+            position: relative;
+            left: 30%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../helpcenter/static/images/favicon.jpg"></link>
+    <title>学习平台-用户帮助中心</title>
+    <!--公共js，包括获得项目根路径等等-->
+    <script type="text/javascript" src="../../helpcenter/static/common.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../../helpcenter/static/css/bootstrap.min.css"></link>
+    <!--表单table处理-->
+    <link rel="stylesheet" href="../../helpcenter/static/bootstrap3-editable/css/bootstrap-editable.css"></link>
+    <link rel="stylesheet" href="../../helpcenter/static/login/bootstrap-table.css"/>
+    <link rel="stylesheet" href="../../helpcenter/static/login/editable-element.css"/>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link type="text/css" href="../../helpcenter/static/docs/assets/css/ie10-viewport-bug-workaround.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="../../helpcenter/static/css/style.css">
+    <!-- Custom styles for this template -->
+    <link href="../../helpcenter/static/docs/examples/dashboard/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../helpcenter/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/html2canvas.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/index.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/message.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/aes.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/pad-nopadding-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/mode-ecb-min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/editable-element.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie8-responsive-file-warning.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/docs/assets/js/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/addrbar/bootstrap-table-addrbar.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--退出登陆-->
+    <link href="../../helpcenter/static/login/login-register.css" rel="stylesheet"/>
+    <script src="../../helpcenter/static/login/login-register.js" type="text/javascript"></script>
+    <!--[if lt IE 9]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/login/respond.min.js"></script>
+    <!--时间选择器相关js和cs-->
+    <!-- 时间选择器样式表 -->
+    <link href="../../helpcenter/static/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <!-- 时间选择器前置脚本 -->
+    <script src="../../helpcenter/static/login/moment-with-locales.min.js"></script>
+    <!-- 时间选择器核心脚本 -->
+    <script src="../../helpcenter/static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript" src="../../helpcenter/static/login/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/login/bootstrap-editable.js"></script>
+    <script type="text/javascript"
+            src="../../helpcenter/static/extensions/editable/bootstrap-table-editable.js"></script>
+    <!--bootstrap中文包避免后台返回给前台数据中文乱码-->
+    <script type="text/javascript"
+            src="../../helpcenter/static/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/jquery.base64.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="../../helpcenter/static/extensions/export/tableExport.js"></script>
+    <!--最后引用的公共js建立在应用了其他js的基础之上引用的-->
+    <script type="text/javascript" src="../../helpcenter/static/js/lastCommon.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+    <script src="../../helpcenter/static/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+    <script src="../../helpcenter/static/vakata-jstree/vakata-jstree-bc5187e/src/jstree.js"
+            type="text/javascript"></script>
+    <script src="../../helpcenter/static/vakata-jstree/vakata-jstree-bc5187e/src/intro.js"
+            type="text/javascript"></script>
+    <script src="../../helpcenter/static/js/lastCommon.js"
+            type="text/javascript"></script>
+    <link href="../../helpcenter/static/win/window/window.css" rel="stylesheet">
+    <link href="window/window.css" rel="stylesheet"/>
+    <script src="../../helpcenter/static/win/window/window.js"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <span id="uu" hidden="hidden">${sessionScope.sessionUserId}</span>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/helpcenter/" style="font-size: 32px;line-height: 25px;">学习平台-帮助信息管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a onclick="loginUpdAjax()">修改密码</a></li>
+                <li><a onclick="loginOutAjax()">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="questionTypeModal" role="dialog" aria-labelledby="myModalLabel1"  style="z-index:99999" >
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:180%;height: 700px;margin-left:-180px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    问题分类信息列表
+                </h4>
+            </div>
+            <div class="modal-header">
+                <input type="text" id="search_ay" placeholder="检索类别名称"/>
+            </div>
+            <div class="">
+                <div id="questionTree" class="treeview" style="height:100%;width:40%;float:left;">
+                </div>
+                <div class="modal-header"
+                     style="height:100%;width:60%;float:right;border-left:2px dashed #e5e5e5;border-right:2px dashed #e5e5e5">
+                    <div class="search_input modal-header" style="">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="question_type_id" id="question_type_id_label"
+                                       class="control-label">类别id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="question_type_id" name="question_type_id" readonly="readonly"
+                                >
+                                <!--//用于后台传值-->
+                                <input type="text" id="id" name="id" hidden="hidden">
+                            </div>
+                            <div class="form-group">
+                                <label for="question_pid" class="control-label">上级类别id:</label>
+                                <input type="text" id="question_pid" name="question_pid"
+                                       onkeyup="value=value.replace(/[^0-9A-Z]/g,'')" maxlength="20"
+                                       style="margin-left:4.5%">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="control-label">类别描述:</label>
+                                <input type="text" id="name" name="name" style="margin-left:6.8%">
+                            </div>
+                            <input type="text" id="oldname" name="oldname" hidden="hidden">
+                            <div class="form-group">
+                                <label for="status" class="control-label">有效标志:</label>
+                                <select id="status" name="status" value="${status}" style="width:31%;margin-left:6.5%">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="addQuestionType" onclick="saveQuestionType()">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal-dialog -->
+
+<div class="modal fade" id="addQuestionDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel0">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myQuestionModalLabel">
+                    修改问题信息
+                </h4>
+            </div>
+            <div class="">
+                <div class="modal-header"
+                     style="">
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="question_type_id" id="upd_question_type_id_label"
+                                       class="control-label">类别id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="upd_question_type_id" name="upd_question_type_id"
+                                       readonly="readonly">
+
+                                <input type="text" id="upd_question_content_short" name="upd_question_content_short"
+                                       hidden="hidden">
+                                <input type="text" id="upd_user_id" name="upd_user_id"
+                                       hidden="hidden">
+                                <!--//用于后台传值-->
+                                <input type="text" id="upd_id" name="upd_id" hidden="hidden">
+                                <label for="question_type_id" id="upd_question_type_name_label" readonly="readonly"
+                                       class="control-label">类别名字:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="upd_question_type_name" name="upd_question_type_name"
+                                       readonly="readonly">
+                                <button id="btn_upload" type="button" class="btn btn-default"
+                                        onclick="checkQuestionType();">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>选择
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="question_content" class="control-label">问题内容:</label>
+                                <textarea type="text" id="question_content" name="question_content"
+                                          style="width: 72%; height: 60%;;"
+                                ></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="question_keywords" class="control-label">问题关键字:</label>
+                                <textarea type="text" id="question_keywords" name="question_keywords"
+                                          style="width: 72%; height: 60%;"
+                                          placeholder="多关键词请使用,号隔开最多5个"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="upd_status" class="control-label">有效标志:</label>
+                                <select id="upd_status" name="upd_status" value="${upd_status}" style="width: 18.5%; ">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                                <label for="if_release" class="control-label">是否发布:</label>
+                                <select id="if_release" name="if_release" value="${if_release}" style="width: 18.5%; ">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>未发布</option>
+                                    <option value='1'>已发布</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="if_common" class="control-label">是否常见:</label>
+                                <select id="if_common" name="if_common" value="${if_common}" style="width: 18.5%; ">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>不常见</option>
+                                    <option value='1'>常见</option>
+                                </select>
+                                <label for="visual_range" class="control-label">可视范围:</label>
+                                <select id="visual_range" name="visual_range" value="${visual_range}"
+                                        style="width: 18.5%; ">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>平台所有</option>
+                                    <option value='1'>用户自己</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="click_number" class="control-label">点击数量:</label>
+                                <input type="text" id="click_number" name="click_number" onkeyup="value=value.replace(/[^0-9]/g,'')">
+                                <label for="number_points" class="control-label">点赞数量:</label>
+                                <input type="text" id="number_points" name="number_points"  onkeyup="value=value.replace(/[^0-9]/g,'')">
+                            </div>
+                            <div class="form-group">
+                                <label for="number_bricks" class="control-label">拍砖数量:</label>
+                                <input type="text" id="number_bricks" name="number_bricks" onkeyup="value=value.replace(/[^0-9]/g,'')">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="updQuestion" hidden="hidden" onclick="updSave()">保存</button>
+                        <button type="button" class="btn btn-primary" id="addQuestion" hidden="hidden" onclick="addSave()">保存 </button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="detailQuestionReplyDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="detailMyQuestionModalLabel">
+                    问题回复信息新增
+                </h4>
+            </div>
+            <div class="">
+                <div class="modal-header"
+                     style="">
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="detail_id" id="detail_id_lable"
+                                       class="control-label">问题信息id:</label>
+                                <!--//用于实际展示-->
+                                <input type="text" id="detail_id" name="detail_id"
+                                       readonly="readonly"  style="width:72%">
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_question_content" class="control-label">问题内容:</label>
+                                <textarea type="text" id="detail_question_content" name="detail_question_content"
+                                          style="width: 72%; height: 60%;"  readonly="readonly"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="detail_reply_content" class="control-label">回复详情:</label>
+                                <textarea type="text" id="detail_reply_content" name="detail_reply_content"
+                                          style="width: 72%; height: 60%;" readonly="readonly"></textarea>
+                                <input type="text" id="old_detail_reply_content" name="old_detail_reply_content"
+                                       hidden="hidden"  style="width:72%">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="detail_question_status" class="control-label" style="width:20%">问题有效标志:</label>
+                                <select id="detail_question_status" name="detail_question_status" value="${detail_question_status}" style="width: 18.5%;" disabled="disabled">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                                <label for="detail_reply_status" class="control-label" style="width:28%">回复有效标志:</label>
+                                <select id="detail_reply_status" name="detail_reply_status" value="${detail_reply_status}" style="width: 18.5%;" disabled="disabled">
+                                    <option value=''>请选择</option>
+                                    <option value='0'>有效</option>
+                                    <option value='1'>无效</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="detailMyQuestionButton"  onclick="addSaveReply()">保存</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menuDiv">
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="/helpcenter/" style="font-size:30px">首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row placeholders">
+                <div class="col-sm-12">
+                    <form class="form-inline query_ipt">
+                        <div class="row">
+                            <div class="col-sm-10" align="left">
+                                <form id="queryinput">
+                                    <tr align="left"><span class="form_til">创建时间</span></td>
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_begin" name="creat_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="creat_dt_end" name="creat_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">用&nbsp;&nbsp;户&nbsp;&nbsp;号</span></td>
+                                        <td><input type="text" class=" input-sm" id="user_id" name="user_id"
+                                                   placeholder="请输入用户号"></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">是否常见</span></td>
+                                        <td><select id="selest_ifcommon" name="selest_ifcommon" value="${selest_ifcommon}"
+                                                    style="width:8.5%;">
+                                            <option value=''>请选择</option>
+                                            <option value='0'>不常见</option>
+                                            <option value='1'>常见</option>
+                                        </select></td>
+                                    </tr>
+                                    <br>
+                                    <tr align="left">
+                                        <span class="form_til">更新时间</span>
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_begin" name="update_dt_begin"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+                                        </span></td>
+                                        —
+                                        <td><span class="input-icon">
+												     <input type="text" id="update_dt_end" name="update_dt_end"
+                                                            class="date-picker">
+												     <i class="icon-calendar blue"></i>
+											        </span></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">有效标志</span></td>
+                                        <td><select id="selest_status" name="selest_status" value="${selest_status}"
+                                                    style="width:8.5%;">
+                                            <option value=''>请选择</option>
+                                            <option value='0'>有效</option>
+                                            <option value='1'>无效</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td><span class="form_til">是否发布</span></td>
+                                        <td><select id="selest_if_release" name="selest_if_release" value="${selest_if_release}"
+                                                    style="width:8.5%;">
+                                            <option value=''>请选择</option>
+                                            <option value='0'>未发布</option>
+                                            <option value='1'>已发布</option>
+                                        </select></td>
+                                    </tr>
+                                </form>
+                            </div>
+                            <div class="col-sm-2" align="left">
+                                <button type="button" class="btn btn-primary"
+                                        onclick="queryList()">查询
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 class="sub-header">问题汇总信息</h2>
+            <div id="toolbar">
+                <button id="btn_add" type="button" class="btn btn-default" onclick="addQuestion();">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                </button>
+                <!--<button id="btn_upload" type="button" class="btn btn-default" onclick="batchUploadShow();">-->
+                <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量上传-->
+                <!--</button>-->
+                <button id="btn_edit" type="button" class="btn btn-default" onclick="editQuestion();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>选择修改
+                </button>
+                <button id="btn_delete" type="button" class="btn btn-default" onclick="delQuestion();">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>选择删除
+                </button>
+                <button id="btn_add2" type="button" class="btn btn-default" onclick="addQuestionReply();">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增回复
+                </button>
+                <button id="btn_edit2" type="button" class="btn btn-default" onclick="questionRelease();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>是否发布
+                </button>
+            </div>
+            <div>
+                <!-- /.问题汇总信息列表 -->
+                <table id="questionBasisTable" class="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updPassWdDiv">
+</div>
+
+</body>
+<script>
+    //全局的类别json对象
+    var arrQuestionJson = [];
+    //tree change时事件
+    $('#questionTree').on("changed.jstree", function (e, data) {
+        var sonJson = getInputWithJson(data.node.id);
+        $("#id").val(sonJson.id);
+        $("#question_type_id").val(sonJson.id);
+        $("#question_type_id_label").html("类别id");
+        document.getElementById("question_pid").readOnly = false;
+        $("#question_pid").val(sonJson.parentId);
+        $("#name").val(sonJson.name);
+        $("#oldname").val(sonJson.name);
+        $("#status").val(sonJson.status);
+    });
+
+    /*新增问题信息*/
+    function addSave() {
+        var code = $("#upd_question_type_id").val();
+        if ("" == code || null == code) {
+            alertWarning('提示信息：类别信息是必输项！');
+            return;
+        }
+        var name = $("#question_content").val();
+        if (name.length > 8) {
+            name = name.substring(0, 9);
+        }
+        win.confirm('系统提示', '警告！您确定要增加这条问题概要为！【' + name + '】的信息么？', function (r) {
+            if (!r) {
+                return;
+            }
+            var numberBricks = $("#number_bricks").val();
+            var numberPoints = $("#number_points").val();
+            var clickNumber = $("#click_number").val();
+            var visualRange = $("#visual_range").val();
+            var ifCommon = $("#if_common").val();
+            var ifRelease = $("#if_release").val();
+            var updStatus = $("#upd_status").val();
+            var updQuestionTypeId = $("#upd_question_type_id").val();
+            var questionContent = $("#question_content").val();
+            var questionKeywords = $("#question_keywords").val();
+            var updUserId = $("#upd_user_id").val();
+
+            var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+            // Encrypt
+            //把私钥转换成16进制的字符串
+            var encrypted = CryptoJS.AES.encrypt(updQuestionTypeId, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            updQuestionTypeId = encrypted.toString();
+
+            $.ajax({
+                type: "POST",
+                url: "webApp/addQuestion",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "question_type_id": updQuestionTypeId,
+                    "status": updStatus,
+                    "if_release": ifRelease,
+                    "if_common": ifCommon,
+                    "visual_range": visualRange,
+                    "click_number": clickNumber,
+                    "number_points": numberPoints,
+                    "number_bricks": numberBricks,
+                    "question_content": questionContent,
+                    "question_keywords": questionKeywords,
+                    "userid": updUserId
+                }),
+                success: function (data, status) {
+                    var jsonObj = JSON.parse(data);
+                    if (status == "success" && jsonObj.code == "1000") {
+                        $('#addQuestionDiv').modal('hide');
+                        $("#questionBasisTable").bootstrapTable('refresh');
+                    } else if (jsonObj.code == "9999") {
+                        /*session超时*/
+                        loginOutAjax();
+                    }
+                },
+                error: function () {
+                    alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                },
+                complete: function () {
+                }
+            });
+        });
+    }
+
+    /*新增问题回复信息*/
+    function addSaveReply() {
+        var code = $("#detail_id").val();
+        if ("" == code || null == code) {
+            alertWarning('提示信息：本条问题信息有误！请更换其他问题信息进行回复！');
+            return;
+        }
+        var detailQuestionContent = $("#detail_question_content").val();
+        if(detailQuestionContent.length >8){
+            detailQuestionContent = detailQuestionContent.substring(0,9)+"...";
+        }
+        win.confirm('系统提示', '警告！您确定要问题概要为！【' + detailQuestionContent + '】的提问信息增加一条回复么？', function (r) {
+            if (!r) {
+                return;
+            }
+            var replyContent = $("#detail_reply_content").val();
+            var replyStatus = $("#detail_reply_status").val();
+            var id = $("#detail_id").val();
+            var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+            // Encrypt
+            //把私钥转换成16进制的字符串
+            var encrypted = CryptoJS.AES.encrypt(id, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            id = encrypted.toString();
+            $.ajax({
+                type: "POST",
+                url: "webApp/addQuestionReply",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "questionid": id,
+                    "reply_content": replyContent,
+                    "status": replyStatus
+                }),
+                success: function (data, status) {
+                    var jsonObj = JSON.parse(data);
+                    if (status == "success" && jsonObj.code == "1000") {
+                        $('#detailQuestionReplyDiv').modal('hide');
+                        alertInfo('提示信息：添加回复完成，您可以到问题回复信息列表查看您的回复信息。');
+                    } else if (jsonObj.code == "9999") {
+                        /*session超时*/
+                        loginOutAjax();
+                    }
+                },
+                error: function () {
+                    alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                },
+                complete: function () {
+                }
+            });
+        });
+    }
+
+
+    /*更新问题信息*/
+    function updSave() {
+        var code = $("#upd_question_type_id").val();
+        if ("" == code || null == code) {
+            alertWarning('提示信息：类别信息是必输项！');
+            return;
+        }
+        var name = $("#upd_question_content_short").val();
+        win.confirm('系统提示', '警告！您确定要修改这条问题概要为！【' + name + '】的信息么？', function (r) {
+            if (!r) {
+                return;
+            }
+            var updId = $("#upd_id").val();
+            var numberBricks = $("#number_bricks").val();
+            var numberPoints = $("#number_points").val();
+            var clickNumber = $("#click_number").val();
+            var visualRange = $("#visual_range").val();
+            var ifCommon = $("#if_common").val();
+            var ifRelease = $("#if_release").val();
+            var updStatus = $("#upd_status").val();
+            var updQuestionTypeId = $("#upd_question_type_id").val();
+            var questionContent = $("#question_content").val();
+            var questionKeywords = $("#question_keywords").val();
+            var updUserId = $("#upd_user_id").val();
+            var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+            // Encrypt
+            //把私钥转换成16进制的字符串
+            var encrypted = CryptoJS.AES.encrypt(updQuestionTypeId, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            updQuestionTypeId = encrypted.toString();
+            $.ajax({
+                type: "POST",
+                url: "webApp/updQuestion",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": updId,
+                    "question_type_id": updQuestionTypeId,
+                    "status": updStatus,
+                    "if_release": ifRelease,
+                    "if_common": ifCommon,
+                    "visual_range": visualRange,
+                    "click_number": clickNumber,
+                    "number_points": numberPoints,
+                    "number_bricks": numberBricks,
+                    "question_content": questionContent,
+                    "question_keywords": questionKeywords,
+                    "userid": updUserId
+                }),
+                success: function (data, status) {
+                    var jsonObj = JSON.parse(data);
+                    if (status == "success" && jsonObj.code == "1000") {
+                        $('#addQuestionDiv').modal('hide');
+                        $("#questionBasisTable").bootstrapTable('refresh');
+                    } else if (jsonObj.code == "9999") {
+                        /*session超时*/
+                        loginOutAjax();
+                    }
+                },
+                error: function () {
+                    alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                },
+                complete: function () {
+                }
+            });
+        });
+    }
+
+    //返回选中的类别信息的整个json
+    function getInputWithJson(val) {
+        for (var i = 0; i < arrQuestionJson.length; i++) {
+            var id = arrQuestionJson[i].id;
+            if (val == id) {
+                return arrQuestionJson[i];
+            }
+        }
+        return [];
+    }
+
+    //changed.jstree,jstree改变时发生的事件，类似的还有select_node.jstree等，api中有。
+
+    //jstree单击事件
+    $("#questionTree").bind("select_node.jstree", function (e, data) {
+        if (data.node.id != 1) {                           //排除第一个节点(2011民事案由)
+            data.instance.toggle_node(data.node);        //单击展开下面的节点
+        }
+    });
+
+
+    //输入框输入定时自动搜索
+    var to = false;
+    $('#search_ay').keyup(function () {
+        if (to) {
+            clearTimeout(to);
+        }
+        to = setTimeout(function () {
+            $('#questionTree').jstree(true).search($('#search_ay').val());
+        }, 250);
+    });
+    /*默认关闭问题分类信息展示列表*/
+    $('#questionTypeModal').modal('hide');
+    /*默认关闭问题回复新增页面的div*/
+    $('#detailQuestionReplyDiv').modal('hide');
+    function questionQuery() {
+        arrQuestionJson = [];
+        $('#questionTree').data('jstree', false).empty();
+        $('#questionTypeModal').modal('show');
+        $.ajax({
+            type: "POST",
+            url: "webApp/treeGrid",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "id": null
+            }),
+            success: function (data, status) {
+                var jsonObj = JSON.parse(data);
+                if (status == "success" && jsonObj.code == "1000") {
+                    arrQuestionJson = jsonObj.rows;
+                    var ay_mssys =
+                        [
+                            {
+                                "id": "1",
+                                "text": "问题分类信息",
+                                "state": {
+                                    "opened": true,          //展示第一个层级下面的node
+                                    "disabled": true         //该根节点不可点击
+                                },
+                                "children": convert(jsonObj.rows)
+                            }
+                        ];
+                    $('#questionTree').data('jstree', false).empty();
+                    $("#questionTree").jstree({
+                        'core': {
+                            "multiple": false,
+                            'data': ay_mssys,
+                            'dblclick_toggle': false          //禁用tree的双击展开
+                        },
+                        "plugins": ["search"]
+                    });
+                } else if (jsonObj.code == "9999") {
+                    /*session超时*/
+                    loginOutAjax();
+                }
+            },
+            error: function () {
+                alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+            },
+            complete: function () {
+            }
+        });
+        // mounted();
+        // configQueryConfig();
+    }
+
+    function convert(rows) {
+        function exists(rows, parentId) {
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].id == parentId) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        var nodes = [];
+        // get the top level nodes
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            if (!exists(rows, row.parentId)) {
+                nodes.push({
+                    id: row.id,
+                    text: row.name
+                });
+            }
+        }
+        var toDo = [];
+        for (var i = 0; i < nodes.length; i++) {
+            toDo.push(nodes[i]);
+        }
+        while (toDo.length) {
+            var node = toDo.shift();	// the parent node
+            // get the children nodes
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if (row.parentId == node.id) {
+                    var child = {id: row.id, text: row.name};
+                    if (node.children) {
+                        node.children.push(child);
+                    } else {
+                        node.children = [child];
+                    }
+                    toDo.push(child);
+                }
+            }
+        }
+        return nodes;
+    }
+
+</script>
+<script type="text/javascript">
+    /*初始化时间控制输入框*/
+    $("#creat_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*初始化时间控制输入框*/
+    $("#creat_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+
+    /*更新时间控制输入框*/
+    $("#update_dt_begin").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+    /*更新时间控制输入框*/
+    $("#update_dt_end").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,//选中关闭
+        todayBtn: true//今日按钮
+    });
+
+    $("#creat_dt_begin").datetimepicker("update", '2000-01-01');
+    $("#creat_dt_end").datetimepicker('setDate', (new Date()));
+    $("#update_dt_begin").datetimepicker("update", '2019-01-01');
+    $("#update_dt_end").datetimepicker('setDate', (new Date()));
+    $('#questionTypeModal').modal('hide');
+    $('#addQuestionDiv').modal('hide');
+
+
+    /*打开问题回复信息新增页面*/
+    function questionRelease() {
+        var rows = $("#questionBasisTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            var id = rows[0].id;
+            if ("" == id || null == id) {
+                alertWarning('提示信息：请选择一个问题信息！');
+                return;
+            }
+            var name = rows[0].question_content_short;
+            /*默认取消发布*/
+            var a_alert = "取消发布";
+            //默认取消发布
+            var if_release = "0";
+            if(rows[0].if_release != 1){
+                a_alert = "发布";
+                if_release = "1";
+            }
+            win.confirm('系统提示', '警告！您确定要'+a_alert+'这条问题概要为！【' + name + '】的信息么？', function (r) {
+                if (!r) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "webApp/updQuestion",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "id": id,
+                        "if_release": if_release
+                    }),
+                    success: function (data, status) {
+                        var jsonObj = JSON.parse(data);
+                        if (status == "success" && jsonObj.code == "1000") {
+                            alertSuccess('提示信息：操作成功！');
+                            $("#questionBasisTable").bootstrapTable('refresh');
+                        } else if (jsonObj.code == "9999") {
+                            /*session超时*/
+                            loginOutAjax();
+                        }
+                    },
+                    error: function () {
+                        alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                    },
+                    complete: function () {
+                    }
+                });
+            });
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行发布操作。")
+        }
+    }
+
+    /*打开问题回复信息新增页面*/
+    function addQuestionReply() {
+        var rows = $("#questionBasisTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            $("#detail_id").val(aesDeciphering(rows[0].id));
+            $("#detail_reply_status").val();
+            $("#detail_question_status").val(rows[0].status);
+            $("#detail_reply_content").val();
+            $("#detail_question_content").val(rows[0].question_content);
+            document.getElementById("detail_question_content").disabled = "disabled";
+            document.getElementById("detail_reply_content").readOnly = false;
+            document.getElementById("detail_question_status").disabled = "disabled";
+            document.getElementById("detail_reply_status").disabled = "";
+            document.getElementById("detail_id").disabled = "disabled";
+            $('#detailQuestionReplyDiv').modal('show');
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行回复。")
+        }
+
+    }
+
+
+    function addQuestion() {
+        $('#addQuestionDiv').modal('show');
+        $("#number_bricks").val("");
+        $("#number_points").val("");
+        $("#click_number").val("");
+        $("#visual_range").val("");
+        $("#if_common").val("");
+        $("#if_release").val("");
+        $("#upd_status").val("");
+        $("#upd_question_type_id").val("");
+        $("#upd_id").val("");
+        $("#upd_question_type_name").val("");
+        $("#question_content").val("");
+        $("#question_keywords").val("");
+        $("#upd_user_id").val("");
+        $("#updQuestion").hide();
+        $("#addQuestion").show();
+        $("#myQuestionModalLabel").html("新增问题信息");
+    }
+
+    function editQuestion() {
+        var rows = $("#questionBasisTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            $("#number_bricks").val(rows[0].number_bricks);
+            $("#number_points").val(rows[0].number_points);
+            $("#click_number").val(rows[0].click_number);
+            $("#visual_range").val(rows[0].visual_range);
+            $("#if_common").val(rows[0].if_common);
+            $("#if_release").val(rows[0].if_release);
+            $("#upd_status").val(rows[0].status);
+            $("#upd_question_type_id").val(rows[0].question_type_id);
+            $("#upd_id").val(rows[0].id);
+            $("#upd_question_type_name").val(rows[0].question_type_name);
+            $("#question_content").val(rows[0].question_content);
+            $("#question_keywords").val(rows[0].question_keywords);
+            $("#upd_question_content_short").val(rows[0].question_content_short);
+            $("#upd_user_id").val(rows[0].user_id);
+            $('#addQuestionDiv').modal('show');
+            $("#updQuestion").show();
+            $("#addQuestion").hide();
+            $("#myQuestionModalLabel").html("修改问题信息");
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行编辑操作。")
+        }
+    }
+
+    function delQuestion() {
+        var rows = $("#questionBasisTable").bootstrapTable("getSelections");//得到选中的列
+        if (rows.length == 1) {
+            var id = rows[0].id;
+            if ("" == id || null == id) {
+                alertWarning('提示信息：请选择一个问题信息！');
+                return;
+            }
+            var name = rows[0].question_content_short;
+            win.confirm('系统提示', '警告！您确定要删除这条问题概要为！【' + name + '】的信息么？注意：此举不可恢复。', function (r) {
+                if (!r) {
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "webApp/delQuestion",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "id": id
+                    }),
+                    success: function (data, status) {
+                        var jsonObj = JSON.parse(data);
+                        if (status == "success" && jsonObj.code == "1000") {
+                            alertSuccess('提示信息：操作成功！');
+                            $("#questionBasisTable").bootstrapTable('refresh');
+                        } else if (jsonObj.code == "9999") {
+                            /*session超时*/
+                            loginOutAjax();
+                        }
+                    },
+                    error: function () {
+                        alertDanger('提示信息：发生系统错误,请联系运维人员进行排查。！');
+                    },
+                    complete: function () {
+                    }
+                });
+            });
+        } else {
+            alertWarning("消息提醒, 警告，请选择一行信息进行删除操作。")
+        }
+    }
+
+    /*打开新增问题页面，点击选择类别按钮*/
+    function checkQuestionType() {
+        $('#questionTypeModal').modal('show');
+        questionQuery();
+        questionQuery();
+    }
+
+    /*打开问题类别页面，选中一个保存用户类别信息*/
+    function saveQuestionType() {
+        $("#upd_question_type_name").val($("#name").val());
+        $("#upd_question_type_id").val($("#question_type_id").val());
+        $('#questionTypeModal').modal('hide');
+    }
+
+    function queryList() {
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            return;
+        }
+        $("#questionBasisTable").bootstrapTable('refresh');
+    }
+
+
+    //初始化得到查询的参数
+    function queryParams(params) {
+        var userId = $("#user_id").val();
+        if (null == userId || userId.length == 0) {
+            /*如下表示用户号不作为查询条件*/
+            userId = "1122-zzii122.11kkqqlloo";
+        }
+        var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+        // Encrypt
+        //把私钥转换成16进制的字符串
+        var encrypted = CryptoJS.AES.encrypt(userId, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        userId = encrypted.toString();
+        var creat_dt_begin = $("#creat_dt_begin").val();
+        var creat_dt_end = $("#creat_dt_end").val();
+        var update_dt_begin = $("#update_dt_begin").val();
+        var update_dt_end = $("#update_dt_end").val();
+        var status = $("#selest_status").val();
+        var ifrelease = $("#selest_if_release").val();
+        var ifcommon = $("#selest_ifcommon").val();
+        /*验证时间输入是否合理*/
+        if (!checkTime(creat_dt_begin, creat_dt_end, update_dt_begin, update_dt_end)) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                // limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                pageSize: this.pageSize,
+                pageNumber: this.pageNumber
+            };
+            return temp;
+        }
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            // limit: params.limit,   //页面大小
+            offset: params.offset,  //页码
+            pageSize: this.pageSize,
+            pageNumber: this.pageNumber,
+            qrytype: "FIg8DoiUbhY=", /*查询问题汇总信息类型0000*/
+            userid: userId,
+            status: status,
+            if_common: ifcommon,
+            qrytmbegin: creat_dt_begin,
+            qrytmend: creat_dt_end,
+            qrytmbeginupd: update_dt_begin,
+            qrytmendupd: update_dt_end,
+            if_release: ifrelease,
+            length: 6
+        };
+        return temp;
+    };
+
+
+    //查询个人问题基本信息表
+    $('#questionBasisTable').bootstrapTable({
+        url: "webApp/queryQuestion",
+        method: 'post',
+        dataType: "json",
+        queryParams: queryParams,
+        classes: 'table',//边框
+        undefinedText: '',//当数据为 undefined 时显示的字符
+        sortable: true,
+        pagination: true,//启动分页
+        paginationLoop: true,
+        pageNumber: 1,
+        pageSize: 10,
+        pageList: [1, 5, 10, 20, 100],
+        striped: true,
+        showColumns: true,  //显示下拉框勾选要显示的列
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        showRefresh: true,  //显示刷新按钮
+        showToggle: true,//显示一行是否改成竖着
+        showPaginationSwitch: true,//是否显示 下面的分页框
+        height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        search: false, //显示搜索框
+        detailView: true,
+        toolbal: '#toolbar',
+        detailFormatter: function (index, row) {
+            return JSON.stringify(row);
+        },
+        columns: [{
+            field: 'checkbox',
+            title: 'checkbox',
+            checkbox: true
+        }, {
+            field: 'number',
+            title: '序号',
+            formatter: function (value, row, index) {
+                return index + 1;
+            }
+        }, {
+            field: 'id',
+            title: 'id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+
+        }, {
+            field: 'user_id',
+            title: '用户id',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return aesDeciphering(value);
+            }
+        }, {
+            field: 'question_content_short',
+            title: '问题内容概述',
+            align: 'center',
+            height: '28px'
+        }, {
+            field: 'question_content',
+            title: '',
+            align: 'center'
+        }, {
+            field: 'question_keywords',
+            title: '问题关键字',
+            align: 'center'
+
+        }, {
+            field: 'status',
+            title: '有效标志',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return configStatusType(value);
+            }
+        }, {
+            field: 'question_type_id',
+            title: '问题类别id',
+            align: 'center'
+        }, {
+            field: 'question_type_name',
+            title: '问题类别名字',
+            align: 'center'
+        }, {
+            field: 'if_release',
+            title: '是否发布',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return ifRelease(value);
+            }
+        }, {
+            field: 'if_common',
+            title: '是否常见',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return ifCommon(value);
+            }
+        }, {
+            field: 'visual_range',
+            title: '可视范围',
+            align: 'center',
+            formatter: function (value, row, index) {
+                return visualRange(value);
+            }
+        }, {
+            field: 'click_number',
+            title: '点击数量',
+            align: 'center'
+        }, {
+            field: 'number_points',
+            title: '点赞次数',
+            align: 'center'
+        }, {
+            field: 'number_bricks',
+            title: '拍砖次数',
+            align: 'center'
+        }, {
+            field: 'ip',
+            title: '操作用户ip',
+            align: 'center'
+        }, {
+            field: 'creation_tm',
+            title: '创建时间',
+            align: 'center'
+        }, {
+            field: 'update_tm',
+            title: '更新时间',
+            align: 'center'
+        }, {
+            field: '',
+            title: '', /*操作*/
+            align: 'center',
+            formatter: function (value, row, index) {
+                var d = '';
+                // <a  style="display: block;margin-top:5px;" class="btn btn-info btn-xs" onclick="view(\'' + index + '\')">' +
+                //     '<i class="glyphicon glyphicon-list-alt"></i>查看</a>
+                return d;
+            }
+        }],
+        onLoadSuccess: function (data) {
+            $('#questionBasisTable').bootstrapTable('hideColumn', 'question_content');// 设置隐藏列
+            if (data.code == "1005") {
+                alertWarning('消息提醒：数据为空！');
+                $('#questionBasisTable').bootstrapTable('load', {total: 0, rows: []});
+                // $('#questionBasisTable').bootstrapTable('destroy');
+            } else if (data.code == "9999") {
+                /*session超时*/
+                loginOutAjax();
+            } else if (data.code != "1000") {
+                alertWarning('提示信息：查询失败！');
+                $('#questionBasisTable').bootstrapTable('load', {total: 0, rows: []});
+            }
+        },
+        onLoadError: function () {
+            alertWarning('提示信息：数据加载失败！');
+        },
+        onDblClickRow: function (contentlist, $element) {
+            var questionContent = contentlist.question_content;
+            alertSixInfo('问题详情：' + questionContent);
+            /*这里是点击每行数据触发事件*/
+            // var id = contentlist.id;
+            // var total = contentlist.total;
+            // EditViewById(id, 'view');
+        },
+        showExport: phoneOrPc(),              //是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回falsee,手机不显示按钮)
+        exportDataType: "basic",              //basic', 'all', 'selected'.
+        exportTypes: ['excel', 'xlsx'],	    //导出类型
+        //exportButton: $('#btn_export'),     //为按钮btn_export  绑定导出事件  自定义导出按钮(可以不用)
+        exportOptions: {
+            //ignoreColumn: [0,0],            //忽略某一列的索引
+            fileName: '数据导出',              //文件名称设置
+            worksheetName: 'Sheet1',          //表格工作区名称
+            tableName: 'integration_basis',
+            excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
+        }
+    });
+
+
+    /*判断终端是手机还是电脑--用于判断文件是否导出(电脑需要导出)*/
+    function phoneOrPc() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $.get("menu.html", function (mdata) {
+        $("#menuDiv").html(mdata);
+    });
+    $.get("updpass.html", function (mdata) {
+        $("#updPassWdDiv").html(mdata);
+    })
+</script>
+</html>
+
+
+
+
