@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PerIntegrationLogMapper">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.PerIntegrationLog">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="COURSE_ID" jdbcType="VARCHAR" property="courseId"/>
+        <result column="QUESTION_ID" jdbcType="VARCHAR" property="questionId"/>
+        <result column="TASK_ID" jdbcType="VARCHAR" property="taskId"/>
+        <result column="TRAINING_ID" jdbcType="VARCHAR" property="trainingId"/>
+        <result column="EXCHANGE_ID" jdbcType="VARCHAR" property="exchangeId"/>
+        <result column="QUESTIONNAIRE_ID" jdbcType="VARCHAR" property="questionnaireId"/>
+        <result column="SCORE" jdbcType="VARCHAR" property="score"/>
+        <result column="LAST_TIME_SCORE" jdbcType="VARCHAR" property="lastTimeScore"/>
+        <result column="UPD_SCORE" jdbcType="VARCHAR" property="updScore"/>
+        <result column="SCORE_TYPE" jdbcType="VARCHAR" property="scoreType"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="CREATION_PER" jdbcType="VARCHAR" property="creationPer"/>
+        <result column="CREATION_DT" jdbcType="VARCHAR" property="creationDt"/>
+        <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm"/>
+        <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm"/>
+        <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp"/>
+        <result column="REMARK1" jdbcType="VARCHAR" property="remark1"/>
+        <result column="REMARK2" jdbcType="VARCHAR" property="remark2"/>
+        <result column="REMARK3" jdbcType="VARCHAR" property="remark3"/>
+        <result column="REMARK4" jdbcType="VARCHAR" property="remark4"/>
+        <result column="REMARK5" jdbcType="VARCHAR" property="remark5"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.spring.springboot.domain.PerIntegrationLog">
+        <result column="LOGNAME" jdbcType="LONGVARCHAR" property="logname"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, USER_ID, COURSE_ID, QUESTION_ID, TASK_ID, TRAINING_ID, EXCHANGE_ID, QUESTIONNAIRE_ID,
+    SCORE, LAST_TIME_SCORE, UPD_SCORE, SCORE_TYPE, IP, CREATION_PER, CREATION_DT, CREATION_TM,
+    UPDATE_TM, TM_SMP, REMARK1, REMARK2, REMARK3, REMARK4, REMARK5
+  </sql>
+    <sql id="Blob_Column_List">
+    LOGNAME
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        from per_integration_log
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <!-- 列表 -->
+    <select id="selectByexamplePage" parameterType="page" resultType="pd">
+        SELECT a.*,b.total FROM (
+        select
+        *
+        from per_integration_log
+        where
+        1 = 1
+        <if test="pd.userId!= null and pd.userId!= ''"><!-- 日志用户号 -->
+            and
+            user_id = #{pd.userId}
+        </if>
+        <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+            and creation_dt &gt;= #{pd.qryTmBegin}
+        </if>
+        <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+            and creation_dt &lt;= #{pd.qryTmEnd}
+        </if>
+        <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+            and UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+        </if>
+        <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+            and UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+        </if>
+        order by creation_dt desc limit #{pd.limitbegin},#{pd.limitend}
+        ) a, (
+        select
+        count(ID) AS total
+        from per_integration_log
+        where
+        1 = 1
+        <if test="pd.userId!= null and pd.userId!= ''"><!-- 日志用户号 -->
+            and
+            user_id = #{pd.userId}
+        </if>
+        <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+            and creation_dt &gt;= #{pd.qryTmBegin}
+        </if>
+        <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+            and creation_dt &lt;= #{pd.qryTmEnd}
+        </if>
+        <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+            and UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+        </if>
+        <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+            and UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+        </if>
+        ) b
+    </select>
+
+    <!-- 通过id获取数据 -->
+    <select id="selectByexample" parameterType="org.spring.springboot.domain.PerIntegrationLog"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from per_integration_log
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+        <if test="creationDt!= null and creationDt!= ''"><!-- 日志创建时间 -->
+            and CREATION_DT = #{creationDt}
+        </if>
+        and UPD_SCORE NOT LIKE '%-%'
+    </select>
+
+
+    <!-- 根据条件查询列表 查询当日兑换人数-->
+    <select id="selectByScoreType" parameterType="org.spring.springboot.domain.PerIntegrationLog" resultType="pd">
+        select
+        *
+        from per_integration_log
+        where
+        1 = 1
+        and SCORE_TYPE = #{scoreType,jdbcType=VARCHAR}
+        <if test="userId!= null and userId!= ''"><!-- 用户id -->
+            and USER_ID = #{userId}
+        </if>
+        <if test="creationDt!= null and creationDt!= ''"><!-- 创建时间 -->
+            and CREATION_DT = #{creationDt}
+        </if>
+        GROUP BY USER_ID
+    </select>
+
+
+    <!-- 通过id,scoretype获取数据 -->
+    <select id="selectScoreType" parameterType="page" resultType="pd">
+        select
+        UPD_SCORE AS SCORE
+        from per_integration_log
+        where USER_ID = #{pd.userId,jdbcType=VARCHAR}
+        <if test="pd.scoreType!= null and pd.scoreType!= ''"><!-- 变更类型 -->
+            and SCORE_TYPE = #{pd.scoreType}
+        </if>
+        <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+            and creation_dt &gt;= #{pd.qryTmBegin}
+        </if>
+        <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+            and creation_dt &lt;= #{pd.qryTmEnd}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from per_integration_log
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+    insert into per_integration_log (ID, USER_ID, COURSE_ID,
+      QUESTION_ID, TASK_ID, TRAINING_ID,
+      EXCHANGE_ID, QUESTIONNAIRE_ID, SCORE,
+      LAST_TIME_SCORE, UPD_SCORE, SCORE_TYPE,
+      IP, CREATION_PER, CREATION_DT,
+      CREATION_TM, UPDATE_TM, TM_SMP,
+      REMARK1, REMARK2, REMARK3,
+      REMARK4, REMARK5, LOGNAME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR},
+      #{questionId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{trainingId,jdbcType=VARCHAR},
+      #{exchangeId,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR},
+      #{lastTimeScore,jdbcType=VARCHAR}, #{updScore,jdbcType=VARCHAR}, #{scoreType,jdbcType=VARCHAR},
+      #{ip,jdbcType=VARCHAR}, #{creationPer,jdbcType=VARCHAR}, #{creationDt,jdbcType=VARCHAR},
+      #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, #{tmSmp,jdbcType=VARCHAR},
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR},
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{logname,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+    <insert id="insertOne" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+    insert into per_integration_log (ID, USER_ID, COURSE_ID,
+      QUESTION_ID, TASK_ID, TRAINING_ID,
+      EXCHANGE_ID, QUESTIONNAIRE_ID, SCORE,
+      LAST_TIME_SCORE, UPD_SCORE, SCORE_TYPE,
+      IP, CREATION_PER, CREATION_DT,
+      CREATION_TM, UPDATE_TM, TM_SMP,
+      REMARK1, REMARK2, REMARK3,
+      REMARK4, REMARK5, LOGNAME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR},
+      #{questionId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{trainingId,jdbcType=VARCHAR},
+      #{exchangeId,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR},
+      #{lastTimeScore,jdbcType=VARCHAR}, #{updScore,jdbcType=VARCHAR}, #{scoreType,jdbcType=VARCHAR},
+      #{ip,jdbcType=VARCHAR}, #{creationPer,jdbcType=VARCHAR}, #{creationDt,jdbcType=VARCHAR},
+      #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, #{tmSmp,jdbcType=VARCHAR},
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR},
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{logname,jdbcType=VARCHAR}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+        insert into per_integration_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="courseId != null">
+                COURSE_ID,
+            </if>
+            <if test="questionId != null">
+                QUESTION_ID,
+            </if>
+            <if test="taskId != null">
+                TASK_ID,
+            </if>
+            <if test="trainingId != null">
+                TRAINING_ID,
+            </if>
+            <if test="exchangeId != null">
+                EXCHANGE_ID,
+            </if>
+            <if test="questionnaireId != null">
+                QUESTIONNAIRE_ID,
+            </if>
+            <if test="score != null">
+                SCORE,
+            </if>
+            <if test="lastTimeScore != null">
+                LAST_TIME_SCORE,
+            </if>
+            <if test="updScore != null">
+                UPD_SCORE,
+            </if>
+            <if test="scoreType != null">
+                SCORE_TYPE,
+            </if>
+            <if test="ip != null">
+                IP,
+            </if>
+            <if test="creationPer != null">
+                CREATION_PER,
+            </if>
+            <if test="creationDt != null">
+                CREATION_DT,
+            </if>
+            <if test="creationTm != null">
+                CREATION_TM,
+            </if>
+            <if test="updateTm != null">
+                UPDATE_TM,
+            </if>
+            <if test="tmSmp != null">
+                TM_SMP,
+            </if>
+            <if test="remark1 != null">
+                REMARK1,
+            </if>
+            <if test="remark2 != null">
+                REMARK2,
+            </if>
+            <if test="remark3 != null">
+                REMARK3,
+            </if>
+            <if test="remark4 != null">
+                REMARK4,
+            </if>
+            <if test="remark5 != null">
+                REMARK5,
+            </if>
+            <if test="logname != null">
+                LOGNAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="trainingId != null">
+                #{trainingId,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeId != null">
+                #{exchangeId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireId != null">
+                #{questionnaireId,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="lastTimeScore != null">
+                #{lastTimeScore,jdbcType=VARCHAR},
+            </if>
+            <if test="updScore != null">
+                #{updScore,jdbcType=VARCHAR},
+            </if>
+            <if test="scoreType != null">
+                #{scoreType,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="creationPer != null">
+                #{creationPer,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDt != null">
+                #{creationDt,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTm != null">
+                #{creationTm,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTm != null">
+                #{updateTm,jdbcType=VARCHAR},
+            </if>
+            <if test="tmSmp != null">
+                #{tmSmp,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+            <if test="remark4 != null">
+                #{remark4,jdbcType=VARCHAR},
+            </if>
+            <if test="remark5 != null">
+                #{remark5,jdbcType=VARCHAR},
+            </if>
+            <if test="logname != null">
+                #{logname,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+        update per_integration_log
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="courseId != null">
+                COURSE_ID = #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                QUESTION_ID = #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                TASK_ID = #{taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="trainingId != null">
+                TRAINING_ID = #{trainingId,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeId != null">
+                EXCHANGE_ID = #{exchangeId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireId != null">
+                QUESTIONNAIRE_ID = #{questionnaireId,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                SCORE = #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="lastTimeScore != null">
+                LAST_TIME_SCORE = #{lastTimeScore,jdbcType=VARCHAR},
+            </if>
+            <if test="updScore != null">
+                UPD_SCORE = #{updScore,jdbcType=VARCHAR},
+            </if>
+            <if test="scoreType != null">
+                SCORE_TYPE = #{scoreType,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                IP = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="creationPer != null">
+                CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDt != null">
+                CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTm != null">
+                CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTm != null">
+                UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+            </if>
+            <if test="tmSmp != null">
+                TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                REMARK1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                REMARK2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                REMARK3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+            <if test="remark4 != null">
+                REMARK4 = #{remark4,jdbcType=VARCHAR},
+            </if>
+            <if test="remark5 != null">
+                REMARK5 = #{remark5,jdbcType=VARCHAR},
+            </if>
+            <if test="logname != null">
+                LOGNAME = #{logname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+    update per_integration_log
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      COURSE_ID = #{courseId,jdbcType=VARCHAR},
+      QUESTION_ID = #{questionId,jdbcType=VARCHAR},
+      TASK_ID = #{taskId,jdbcType=VARCHAR},
+      TRAINING_ID = #{trainingId,jdbcType=VARCHAR},
+      EXCHANGE_ID = #{exchangeId,jdbcType=VARCHAR},
+      QUESTIONNAIRE_ID = #{questionnaireId,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      LAST_TIME_SCORE = #{lastTimeScore,jdbcType=VARCHAR},
+      UPD_SCORE = #{updScore,jdbcType=VARCHAR},
+      SCORE_TYPE = #{scoreType,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR},
+      LOGNAME = #{logname,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.PerIntegrationLog">
+    update per_integration_log
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      COURSE_ID = #{courseId,jdbcType=VARCHAR},
+      QUESTION_ID = #{questionId,jdbcType=VARCHAR},
+      TASK_ID = #{taskId,jdbcType=VARCHAR},
+      TRAINING_ID = #{trainingId,jdbcType=VARCHAR},
+      EXCHANGE_ID = #{exchangeId,jdbcType=VARCHAR},
+      QUESTIONNAIRE_ID = #{questionnaireId,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      LAST_TIME_SCORE = #{lastTimeScore,jdbcType=VARCHAR},
+      UPD_SCORE = #{updScore,jdbcType=VARCHAR},
+      SCORE_TYPE = #{scoreType,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

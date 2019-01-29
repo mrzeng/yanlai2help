@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VideoPreliminaryRelationMapper">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.VideoPreliminaryRelation">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="PRELIMINARY_ID" jdbcType="VARCHAR" property="preliminaryId"/>
+        <result column="VIDEO_PATH" jdbcType="VARCHAR" property="videoPath"/>
+        <result column="VIDEO_TYPE" jdbcType="VARCHAR" property="videoType"/>
+        <result column="VIDEO_SIZE" jdbcType="VARCHAR" property="videoSize"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="IF_RELEASE" jdbcType="VARCHAR" property="ifRelease"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="CREATION_PER" jdbcType="VARCHAR" property="creationPer"/>
+        <result column="CREATION_DT" jdbcType="VARCHAR" property="creationDt"/>
+        <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm"/>
+        <result column="RELEASE_TM" jdbcType="VARCHAR" property="releaseTm"/>
+        <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm"/>
+        <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp"/>
+        <result column="REMARK1" jdbcType="VARCHAR" property="remark1"/>
+        <result column="REMARK2" jdbcType="VARCHAR" property="remark2"/>
+        <result column="REMARK3" jdbcType="VARCHAR" property="remark3"/>
+        <result column="REMARK4" jdbcType="VARCHAR" property="remark4"/>
+        <result column="REMARK5" jdbcType="VARCHAR" property="remark5"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, PRELIMINARY_ID, VIDEO_PATH, VIDEO_TYPE, VIDEO_SIZE, STATUS, IF_RELEASE, IP, CREATION_PER, 
+    CREATION_DT, CREATION_TM, RELEASE_TM, UPDATE_TM, TM_SMP, REMARK1, REMARK2, REMARK3, 
+    REMARK4, REMARK5
+  </sql>
+
+
+    <!--查询总条数-->
+    <select id="selectTotal" parameterType="page" resultType="pd">
+    select
+    ID
+    from video_preliminary_relation
+    where
+    1 = 1
+  </select>
+
+
+    <!-- 根据条件和页数查询列表 -->
+    <select id="selectByexamplePage" parameterType="page" resultType="pd">
+        select
+        a.*,b.PRELIMINARY_NAME
+        from video_preliminary_relation a left join preliminary_information b on a.preliminary_id = b.id
+        where
+        1 = 1
+        <if test="pd.id!= null and pd.id!= ''"><!-- id -->
+            and a.ID = #{pd.id}
+        </if>
+        <if test="pd.status!= null and pd.status!= ''"><!-- 是否有效 -->
+            and a.STATUS = #{pd.status}
+        </if>
+        <if test="pd.ifCommon!= null and pd.ifCommon!= ''"><!--是否常见公共 -->
+            and a.IF_COMMON = #{pd.ifCommon}
+        </if>
+        <if test="pd.preliminaryId!= null and pd.preliminaryId!= ''"><!--入门id -->
+            and a.PRELIMINARY_ID = #{pd.preliminaryId}
+        </if>
+
+        <if test="pd.ifRelease!= null and pd.ifRelease!= ''"><!--是否发布 -->
+            and a.IF_RELEASE = #{pd.ifRelease}
+        </if>
+        <if test="pd.questionTypeId!= null and pd.questionTypeId!= ''"><!--入门id -->
+            and a.PRELIMINARY_ID = #{pd.questionTypeId}
+        </if>
+        <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+            and a.CREATION_TM &gt;= #{pd.qryTmBegin}
+        </if>
+        <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+            and a.CREATION_TM &lt;= #{pd.qryTmEnd}
+        </if>
+        <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+            and a.UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+        </if>
+        <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+            and a.UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+        </if>
+        order by a.UPDATE_TM desc limit #{pd.limitbegin},#{pd.limitend}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video_preliminary_relation
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from video_preliminary_relation
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="org.spring.springboot.domain.VideoPreliminaryRelation">
+    insert into video_preliminary_relation (ID, PRELIMINARY_ID, VIDEO_PATH, 
+      VIDEO_TYPE, VIDEO_SIZE, STATUS, 
+      IF_RELEASE, IP, CREATION_PER, 
+      CREATION_DT, CREATION_TM, RELEASE_TM, 
+      UPDATE_TM, TM_SMP, REMARK1, 
+      REMARK2, REMARK3, REMARK4, 
+      REMARK5)
+    values (#{id,jdbcType=VARCHAR}, #{preliminaryId,jdbcType=VARCHAR}, #{videoPath,jdbcType=VARCHAR}, 
+      #{videoType,jdbcType=VARCHAR}, #{videoSize,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{ifRelease,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{creationPer,jdbcType=VARCHAR}, 
+      #{creationDt,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{releaseTm,jdbcType=VARCHAR}, 
+      #{updateTm,jdbcType=VARCHAR}, #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="org.spring.springboot.domain.VideoPreliminaryRelation">
+        insert into video_preliminary_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="preliminaryId != null">
+                PRELIMINARY_ID,
+            </if>
+            <if test="videoPath != null">
+                VIDEO_PATH,
+            </if>
+            <if test="videoType != null">
+                VIDEO_TYPE,
+            </if>
+            <if test="videoSize != null">
+                VIDEO_SIZE,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="ifRelease != null">
+                IF_RELEASE,
+            </if>
+            <if test="ip != null">
+                IP,
+            </if>
+            <if test="creationPer != null">
+                CREATION_PER,
+            </if>
+            <if test="creationDt != null">
+                CREATION_DT,
+            </if>
+            <if test="creationTm != null">
+                CREATION_TM,
+            </if>
+            <if test="releaseTm != null">
+                RELEASE_TM,
+            </if>
+            <if test="updateTm != null">
+                UPDATE_TM,
+            </if>
+            <if test="tmSmp != null">
+                TM_SMP,
+            </if>
+            <if test="remark1 != null">
+                REMARK1,
+            </if>
+            <if test="remark2 != null">
+                REMARK2,
+            </if>
+            <if test="remark3 != null">
+                REMARK3,
+            </if>
+            <if test="remark4 != null">
+                REMARK4,
+            </if>
+            <if test="remark5 != null">
+                REMARK5,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="preliminaryId != null">
+                #{preliminaryId,jdbcType=VARCHAR},
+            </if>
+            <if test="videoPath != null">
+                #{videoPath,jdbcType=VARCHAR},
+            </if>
+            <if test="videoType != null">
+                #{videoType,jdbcType=VARCHAR},
+            </if>
+            <if test="videoSize != null">
+                #{videoSize,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ifRelease != null">
+                #{ifRelease,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="creationPer != null">
+                #{creationPer,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDt != null">
+                #{creationDt,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTm != null">
+                #{creationTm,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTm != null">
+                #{releaseTm,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTm != null">
+                #{updateTm,jdbcType=VARCHAR},
+            </if>
+            <if test="tmSmp != null">
+                #{tmSmp,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+            <if test="remark4 != null">
+                #{remark4,jdbcType=VARCHAR},
+            </if>
+            <if test="remark5 != null">
+                #{remark5,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.VideoPreliminaryRelation">
+        update video_preliminary_relation
+        <set>
+            <if test="preliminaryId != null">
+                PRELIMINARY_ID = #{preliminaryId,jdbcType=VARCHAR},
+            </if>
+            <if test="videoPath != null">
+                VIDEO_PATH = #{videoPath,jdbcType=VARCHAR},
+            </if>
+            <if test="videoType != null">
+                VIDEO_TYPE = #{videoType,jdbcType=VARCHAR},
+            </if>
+            <if test="videoSize != null">
+                VIDEO_SIZE = #{videoSize,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ifRelease != null">
+                IF_RELEASE = #{ifRelease,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                IP = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="creationPer != null">
+                CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDt != null">
+                CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTm != null">
+                CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTm != null">
+                RELEASE_TM = #{releaseTm,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTm != null">
+                UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+            </if>
+            <if test="tmSmp != null">
+                TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                REMARK1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                REMARK2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                REMARK3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+            <if test="remark4 != null">
+                REMARK4 = #{remark4,jdbcType=VARCHAR},
+            </if>
+            <if test="remark5 != null">
+                REMARK5 = #{remark5,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.VideoPreliminaryRelation">
+    update video_preliminary_relation
+    set PRELIMINARY_ID = #{preliminaryId,jdbcType=VARCHAR},
+      VIDEO_PATH = #{videoPath,jdbcType=VARCHAR},
+      VIDEO_TYPE = #{videoType,jdbcType=VARCHAR},
+      VIDEO_SIZE = #{videoSize,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      IF_RELEASE = #{ifRelease,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      RELEASE_TM = #{releaseTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

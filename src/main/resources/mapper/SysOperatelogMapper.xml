@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysOperatelogMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.SysOperatelog">
+    <id column="LOGID" jdbcType="VARCHAR" property="logid" />
+    <result column="LOGTYPE" jdbcType="VARCHAR" property="logtype" />
+    <result column="OPERATETYPE" jdbcType="VARCHAR" property="operatetype" />
+    <result column="MODULETYPE" jdbcType="VARCHAR" property="moduletype" />
+    <result column="LOGGERTYPE" jdbcType="VARCHAR" property="loggertype" />
+    <result column="CREATETIME" jdbcType="VARCHAR" property="createtime" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="OPERATER" jdbcType="VARCHAR" property="operater" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.spring.springboot.domain.SysOperatelog">
+    <result column="LOGNAME" jdbcType="LONGVARCHAR" property="logname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    LOGID, LOGTYPE, OPERATETYPE, MODULETYPE, LOGGERTYPE, CREATETIME, IP, OPERATER
+  </sql>
+  <sql id="Blob_Column_List">
+    LOGNAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_operatelog
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_operatelog
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.SysOperatelog">
+    insert into sys_operatelog (LOGID, LOGTYPE, OPERATETYPE, 
+      MODULETYPE, LOGGERTYPE, CREATETIME, 
+      IP, OPERATER, LOGNAME
+      )
+    values (#{logid,jdbcType=VARCHAR}, #{logtype,jdbcType=VARCHAR}, #{operatetype,jdbcType=VARCHAR}, 
+      #{moduletype,jdbcType=VARCHAR}, #{loggertype,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{operater,jdbcType=VARCHAR}, #{logname,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.SysOperatelog">
+    insert into sys_operatelog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        LOGID,
+      </if>
+      <if test="logtype != null">
+        LOGTYPE,
+      </if>
+      <if test="operatetype != null">
+        OPERATETYPE,
+      </if>
+      <if test="moduletype != null">
+        MODULETYPE,
+      </if>
+      <if test="loggertype != null">
+        LOGGERTYPE,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+      <if test="operater != null">
+        OPERATER,
+      </if>
+      <if test="logname != null">
+        LOGNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        #{logid,jdbcType=VARCHAR},
+      </if>
+      <if test="logtype != null">
+        #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetype != null">
+        #{operatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="loggertype != null">
+        #{loggertype,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operater != null">
+        #{operater,jdbcType=VARCHAR},
+      </if>
+      <if test="logname != null">
+        #{logname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.SysOperatelog">
+    update sys_operatelog
+    <set>
+      <if test="logtype != null">
+        LOGTYPE = #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetype != null">
+        OPERATETYPE = #{operatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        MODULETYPE = #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="loggertype != null">
+        LOGGERTYPE = #{loggertype,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operater != null">
+        OPERATER = #{operater,jdbcType=VARCHAR},
+      </if>
+      <if test="logname != null">
+        LOGNAME = #{logname,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.spring.springboot.domain.SysOperatelog">
+    update sys_operatelog
+    set LOGTYPE = #{logtype,jdbcType=VARCHAR},
+      OPERATETYPE = #{operatetype,jdbcType=VARCHAR},
+      MODULETYPE = #{moduletype,jdbcType=VARCHAR},
+      LOGGERTYPE = #{loggertype,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      OPERATER = #{operater,jdbcType=VARCHAR},
+      LOGNAME = #{logname,jdbcType=LONGVARCHAR}
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.SysOperatelog">
+    update sys_operatelog
+    set LOGTYPE = #{logtype,jdbcType=VARCHAR},
+      OPERATETYPE = #{operatetype,jdbcType=VARCHAR},
+      MODULETYPE = #{moduletype,jdbcType=VARCHAR},
+      LOGGERTYPE = #{loggertype,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      OPERATER = #{operater,jdbcType=VARCHAR}
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </update>
+</mapper>

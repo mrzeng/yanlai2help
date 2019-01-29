@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZwCourseRecordMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.ZwCourseRecord">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="COURSEID" jdbcType="VARCHAR" property="courseid" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CHOOSECOURSETIME" jdbcType="VARCHAR" property="choosecoursetime" />
+    <result column="CREATETIME" jdbcType="VARCHAR" property="createtime" />
+    <result column="UPDATETIME" jdbcType="VARCHAR" property="updatetime" />
+    <result column="ATTRIBUTE" jdbcType="VARCHAR" property="attribute" />
+    <result column="SCHEDULE" jdbcType="VARCHAR" property="schedule" />
+    <result column="TIMEPOINT" jdbcType="VARCHAR" property="timepoint" />
+    <result column="ALLSTUDYLENGTH" jdbcType="VARCHAR" property="allstudylength" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERID, COURSEID, STATUS, CHOOSECOURSETIME, CREATETIME, UPDATETIME, ATTRIBUTE, 
+    SCHEDULE, TIMEPOINT, ALLSTUDYLENGTH
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zw_course_record
+    where ID = #{id,jdbcType=VARCHAR}
+    and STATUS = '0'
+  </select>
+
+  <select id="selectByexamplePage" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from zw_course_record
+    where USERID = #{userid,jdbcType=VARCHAR}
+    and COURSEID = #{courseid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zw_course_record
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.ZwCourseRecord">
+    insert into zw_course_record (ID, USERID, COURSEID, 
+      STATUS, CHOOSECOURSETIME, CREATETIME, 
+      UPDATETIME, ATTRIBUTE, SCHEDULE, 
+      TIMEPOINT, ALLSTUDYLENGTH)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{choosecoursetime,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{attribute,jdbcType=VARCHAR}, #{schedule,jdbcType=VARCHAR}, 
+      #{timepoint,jdbcType=VARCHAR}, #{allstudylength,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.ZwCourseRecord">
+    insert into zw_course_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="courseid != null">
+        COURSEID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="choosecoursetime != null">
+        CHOOSECOURSETIME,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="attribute != null">
+        ATTRIBUTE,
+      </if>
+      <if test="schedule != null">
+        SCHEDULE,
+      </if>
+      <if test="timepoint != null">
+        TIMEPOINT,
+      </if>
+      <if test="allstudylength != null">
+        ALLSTUDYLENGTH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="choosecoursetime != null">
+        #{choosecoursetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute != null">
+        #{attribute,jdbcType=VARCHAR},
+      </if>
+      <if test="schedule != null">
+        #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="timepoint != null">
+        #{timepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="allstudylength != null">
+        #{allstudylength,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.ZwCourseRecord">
+    update zw_course_record
+    <set>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        COURSEID = #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="choosecoursetime != null">
+        CHOOSECOURSETIME = #{choosecoursetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute != null">
+        ATTRIBUTE = #{attribute,jdbcType=VARCHAR},
+      </if>
+      <if test="schedule != null">
+        SCHEDULE = #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="timepoint != null">
+        TIMEPOINT = #{timepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="allstudylength != null">
+        ALLSTUDYLENGTH = #{allstudylength,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.ZwCourseRecord">
+    update zw_course_record
+    set USERID = #{userid,jdbcType=VARCHAR},
+      COURSEID = #{courseid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CHOOSECOURSETIME = #{choosecoursetime,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      ATTRIBUTE = #{attribute,jdbcType=VARCHAR},
+      SCHEDULE = #{schedule,jdbcType=VARCHAR},
+      TIMEPOINT = #{timepoint,jdbcType=VARCHAR},
+      ALLSTUDYLENGTH = #{allstudylength,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HelpcenterMapper">
+	
+	<!-- 列表 -->
+	<select id="helpcenterlistPage" parameterType="page" resultType="pd">
+		select 
+				*
+		from sys_helpcenter 
+		where
+			1 = 1
+		<if test="pd.title != null and pd.title != ''"><!-- 标题检索 -->
+			and title like CONCAT(CONCAT('%', #{pd.title}),'%') 
+		</if>
+		<if test="pd.publisher!= null and pd.publisher!= ''"><!-- 发布人检索 -->
+			and publisher like CONCAT(CONCAT('%', #{pd.publisher}),'%') 
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 发布时间检索 -->
+			and addtime &gt;= #{pd.lastStart} 
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 发布时间检索 -->
+			and addtime &lt;= #{pd.lastEnd} 
+		</if>
+		<if test="pd.status != null and pd.status != ''"><!-- 状态检索 -->
+			and status=#{pd.status} 
+		</if>
+		<if test="pd.type!=null and pd.type!=''"><!-- 帮助中心类型检索-->
+			and type = #{pd.type} 
+		</if>
+		order by addtime desc
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="save" parameterType="pd">
+		insert into sys_helpcenter (
+			id,
+			title,
+			content,
+			publisher,
+			addtime,
+			uptime,
+			status,
+			url,
+			type
+		) values (
+			#{id},
+			#{title},
+			#{content},
+			#{publisher},
+			#{addtime},
+			#{uptime},
+			#{status},
+			#{url},
+			#{type}
+		)
+	</insert>
+
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  sys_helpcenter
+			set title				= #{title},
+				content				= #{content},
+				publisher 			= #{publisher},
+				uptime				= #{uptime},
+				status 				= #{status},
+				url					= #{url},
+				type				= #{type}
+			where 
+				id = #{id}
+	</update>
+	
+	<!-- 通过id获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			*
+		from 
+			sys_helpcenter
+		where 
+			id = #{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="pd">
+		delete from sys_helpcenter 
+		where 
+			id = #{id}
+	</delete>
+	<!-- 首页展示20170413 -->
+	<select id="helplist" parameterType="page" resultType="pd">
+		select 
+				*
+		from sys_helpcenter 
+		where
+			1 = 1
+		<if test="type!=null and type!=''"><!-- 帮助中心类型检索-->
+			and type = #{type} 
+		</if>
+		order by addtime desc
+		limit #{limitbegin},#{limitend}
+	</select>	
+</mapper>

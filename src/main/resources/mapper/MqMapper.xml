@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MqMapper">
+
+	<select id="findById" parameterType="pd" resultType="pd">
+		select * from sys_mq_record
+		where id = #{ID} 
+		<if test="status != '' and status != null">
+			and status = '1'
+		</if>
+	</select>
+	<!-- 添加mq记录 -->
+	<insert id="save" parameterType="org.spring.springboot.domain.SendMQModel">
+		insert into sys_mq_record (
+			id,
+			content,
+			sendTime,
+			userId,
+			type,
+			status,
+			processTime
+		) values (
+			#{id},
+			#{content},
+			#{sendTime},
+			#{userId},
+			#{type},
+			#{status},
+			#{processTime}
+		)
+	</insert>
+	<!-- 数据更新 -->
+	<update id="update" parameterType="org.spring.springboot.domain.SendMQModel">
+		update sys_mq_record
+		set
+			status = #{status}
+			<if test="processTime != '' and processTime != null">
+				,processTime = #{processTime}
+			</if>
+		where id = #{id}
+	</update>
+</mapper>

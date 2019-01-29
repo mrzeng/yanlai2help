@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QuestionTypeInfoMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.QuestionTypeInfo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="QUESTION_TYPE_NAME" jdbcType="VARCHAR" property="questionTypeName" />
+    <result column="FATHER_ID" jdbcType="VARCHAR" property="fatherId" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="CREATION_PER" jdbcType="VARCHAR" property="creationPer" />
+    <result column="CREATION_DT" jdbcType="VARCHAR" property="creationDt" />
+    <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm" />
+    <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm" />
+    <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, QUESTION_TYPE_NAME, FATHER_ID, STATUS, IP, CREATION_PER, CREATION_DT, CREATION_TM, 
+    UPDATE_TM, TM_SMP, REMARK1, REMARK2, REMARK3, REMARK4, REMARK5
+  </sql>
+  <select id="selectByexamplePage" parameterType="page" resultType="pd">
+    select
+    *
+    from question_type_info
+    where
+    1 = 1
+    <if test="pd.id!= null and pd.id!= ''"><!-- id -->
+      and ID = #{pd.id}
+    </if>
+    <if test="pd.status!= null and pd.status!= ''"><!-- 是否有效 -->
+      and STATUS = #{pd.status}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+      and CREATION_TM &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+      and CREATION_TM &lt;= #{pd.qryTmEnd}
+    </if>
+    <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+    </if>
+    <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+    </if>
+    order by CREATION_TM desc  limit #{pd.limitbegin},#{pd.limitend}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question_type_info
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from question_type_info
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByPrimaryKeyAndPid" parameterType="java.lang.String">
+    delete from question_type_info
+    where ID = #{id,jdbcType=VARCHAR} or FATHER_ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.QuestionTypeInfo">
+    insert into question_type_info (ID, QUESTION_TYPE_NAME, FATHER_ID, 
+      STATUS, IP, CREATION_PER, 
+      CREATION_DT, CREATION_TM, UPDATE_TM, 
+      TM_SMP, REMARK1, REMARK2, 
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{questionTypeName,jdbcType=VARCHAR}, #{fatherId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{creationPer,jdbcType=VARCHAR}, 
+      #{creationDt,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, 
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.QuestionTypeInfo">
+    insert into question_type_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="questionTypeName != null">
+        QUESTION_TYPE_NAME,
+      </if>
+      <if test="fatherId != null">
+        FATHER_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+      <if test="creationPer != null">
+        CREATION_PER,
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT,
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM,
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM,
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTypeName != null">
+        #{questionTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null">
+        #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="creationPer != null">
+        #{creationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.QuestionTypeInfo">
+    update question_type_info
+    <set>
+      <if test="questionTypeName != null">
+        QUESTION_TYPE_NAME = #{questionTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherId != null">
+        FATHER_ID = #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="creationPer != null">
+        CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.QuestionTypeInfo">
+    update question_type_info
+    set QUESTION_TYPE_NAME = #{questionTypeName,jdbcType=VARCHAR},
+      FATHER_ID = #{fatherId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

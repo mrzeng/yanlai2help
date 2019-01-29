@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EffectiveIntegralMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.EffectiveIntegral">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="SCORE" jdbcType="VARCHAR" property="score" />
+    <result column="IS_ENABLED" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="END_DT" jdbcType="VARCHAR" property="endDt" />
+    <result column="DAYS" jdbcType="VARCHAR" property="days" />
+    <result column="CREATION_DT" jdbcType="VARCHAR" property="creationDt" />
+    <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm" />
+    <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm" />
+    <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SCORE, IS_ENABLED, END_DT, DAYS, CREATION_DT, CREATION_TM, UPDATE_TM, 
+    TM_SMP, REMARK1, REMARK2, REMARK3, REMARK4, REMARK5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from effective_integral
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+    <if test="endDt!= null and endDt!= ''"><!-- 有效期截止时间 -->
+      and END_DT = #{endDt}
+    </if>
+    and IS_ENABLED = '0'<!-- 有效 -->
+  </select>
+  <select id="selectByexamplePage" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from effective_integral
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+    <if test="endDt!= null and endDt!= ''"><!-- 有效期截止时间 -->
+      and END_DT >= #{endDt}
+    </if>
+    and IS_ENABLED = '0'<!-- 有效 -->
+    order by end_dt
+  </select>
+  <select id="selectByexample" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from effective_integral
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+    <if test="endDt!= null and endDt!= ''"><!-- 有效期截止时间 -->
+      and END_DT = #{endDt}
+    </if>
+    and IS_ENABLED = '0'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from effective_integral
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.EffectiveIntegral">
+    insert into effective_integral (ID, USER_ID, SCORE, 
+      IS_ENABLED, END_DT, DAYS, 
+      CREATION_DT, CREATION_TM, UPDATE_TM, 
+      TM_SMP, REMARK1, REMARK2, 
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{isEnabled,jdbcType=VARCHAR}, #{endDt,jdbcType=VARCHAR}, #{days,jdbcType=VARCHAR}, 
+      #{creationDt,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, 
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.EffectiveIntegral">
+    insert into effective_integral
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="isEnabled != null">
+        IS_ENABLED,
+      </if>
+      <if test="endDt != null">
+        END_DT,
+      </if>
+      <if test="days != null">
+        DAYS,
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT,
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM,
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM,
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="endDt != null">
+        #{endDt,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeyForLose" parameterType="org.spring.springboot.domain.EffectiveIntegral">
+    update effective_integral
+    <set>
+      <if test="isEnabled != null">
+        IS_ENABLED = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where
+    <if test="id!= null and id!= ''" ><!-- 如下两个条件互斥存在不允许加上and -->
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="userId!= null and userId!= ''">
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.EffectiveIntegral">
+    update effective_integral
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      IS_ENABLED = #{isEnabled,jdbcType=VARCHAR},
+      END_DT = #{endDt,jdbcType=VARCHAR},
+      DAYS = #{days,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.EffectiveIntegral">
+    update effective_integral
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        IS_ENABLED = #{isEnabled,jdbcType=VARCHAR},
+      </if>
+      <if test="endDt != null">
+        END_DT = #{endDt,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        DAYS = #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

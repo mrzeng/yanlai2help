@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PerIntegrationBasisMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.PerIntegrationBasis">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="SCORE" jdbcType="VARCHAR" property="score" />
+    <result column="ORIGINAL_SCORE" jdbcType="VARCHAR" property="originalScore" />
+    <result column="LAST_TIME_SCORE" jdbcType="VARCHAR" property="lastTimeScore" />
+    <result column="YESTERDAY_SCORE" jdbcType="VARCHAR" property="yesterdayScore" />
+    <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm" />
+    <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm" />
+    <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SCORE, ORIGINAL_SCORE, LAST_TIME_SCORE, YESTERDAY_SCORE, CREATION_TM, UPDATE_TM, TM_SMP, REMARK1,
+    REMARK2, REMARK3, REMARK4, REMARK5
+  </sql>
+  <!-- 通过id获取数据 -->
+  <select id="selectByPrimaryKey" parameterType="org.spring.springboot.domain.PerIntegrationBasis" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from per_integration_basis
+    where ID = #{id,jdbcType=VARCHAR}
+    <if test="updateTm!= null and updateTm!= ''"><!-- 更新时间 -->
+      and UPDATE_TM like CONCAT(CONCAT('%', #{updateTm}),'%')
+    </if>
+  </select>
+
+  <!-- 列表 -->
+  <select id="selectByexamplePage" parameterType="page" resultType="pd">
+    SELECT a.*,b.total FROM (
+    select
+    *
+    from per_integration_basis
+    where
+    1 = 1
+    <if test="pd.id!= null and pd.id!= ''"><!-- 用户号 -->
+      and
+      id = #{pd.id}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 基本信息创建时间 -->
+      and creation_tm &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 基本信息创建时间 -->
+      and creation_tm &lt;= #{pd.qryTmEnd}
+    </if>
+    order by creation_tm desc  limit #{pd.limitbegin},#{pd.limitend}
+    ) a, (
+    select
+    count(ID) AS total
+    from per_integration_basis
+    where
+    1 = 1
+    <if test="pd.id!= null and pd.id!= ''"><!-- 用户号 -->
+      and
+      id = #{pd.id}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 基本信息创建时间 -->
+      and creation_tm &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 基本信息创建时间 -->
+      and creation_tm &lt;= #{pd.qryTmEnd}
+    </if>
+    ) b
+  </select>
+
+  <!-- 列表 -->
+  <select id="selectByexampleAllIdPage" parameterType="page" resultType="pd">
+    select
+    *
+    from per_integration_basis
+    where
+    1 = 1
+    <if test="pd.userId!= null and pd.userId!= ''"><!-- 用户id -->
+      and USER_ID = #{pd.userId}
+    </if>
+    limit #{pd.limitbegin},#{pd.limitend}
+  </select>
+
+
+  <!-- 通过id获取数据 -->
+  <select id="selectByexample" parameterType="org.spring.springboot.domain.PerIntegrationBasis" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from per_integration_basis
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from per_integration_basis
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    insert into per_integration_basis (ID, SCORE, ORIGINAL_SCORE, LAST_TIME_SCORE,
+      YESTERDAY_SCORE, CREATION_TM, UPDATE_TM, 
+      TM_SMP, REMARK1, REMARK2, 
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{originalScore,jdbcType=VARCHAR}, #{lastTimeScore,jdbcType=VARCHAR},
+      #{yesterdayScore,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, 
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertOne" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    insert into per_integration_basis (ID, SCORE, ORIGINAL_SCORE, LAST_TIME_SCORE,
+      YESTERDAY_SCORE, CREATION_TM, UPDATE_TM,
+      TM_SMP, REMARK1, REMARK2,
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{originalScore,jdbcType=VARCHAR}, #{lastTimeScore,jdbcType=VARCHAR},
+      #{yesterdayScore,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR},
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR},
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    insert into per_integration_basis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="originalScore != null">
+        ORIGINAL_SCORE,
+      </if>
+      <if test="lastTimeScore != null">
+        LAST_TIME_SCORE,
+      </if>
+      <if test="yesterdayScore != null">
+        YESTERDAY_SCORE,
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM,
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM,
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTimeScore != null">
+        #{lastTimeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="yesterdayScore != null">
+        #{yesterdayScore,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    update per_integration_basis
+    <set>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="originalScore!= null and originalScore!= ''">
+        ORIGINAL_SCORE = #{originalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTimeScore != null">
+        LAST_TIME_SCORE = #{lastTimeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="yesterdayScore != null">
+        YESTERDAY_SCORE = #{yesterdayScore,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    update per_integration_basis
+    set SCORE = #{score,jdbcType=VARCHAR},
+      ORIGINAL_SCORE = #{originalScore,jdbcType=VARCHAR},
+      LAST_TIME_SCORE = #{lastTimeScore,jdbcType=VARCHAR},
+      YESTERDAY_SCORE = #{yesterdayScore,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 数据更新 -->
+  <update id="updateByKey" parameterType="org.spring.springboot.domain.PerIntegrationBasis">
+    update sys_mq_record
+    set
+    status = #{status}
+    <if test="processTime != '' and processTime != null">
+      ,processTime = #{processTime}
+    </if>
+    where id = #{id}
+  </update>
+</mapper>

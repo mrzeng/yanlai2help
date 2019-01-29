@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZwTrainingcourseMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.ZwTrainingcourse">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="INFO" jdbcType="VARCHAR" property="info" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+    <result column="CREDIT" jdbcType="VARCHAR" property="credit" />
+    <result column="LENGTH" jdbcType="VARCHAR" property="length" />
+    <result column="PIC" jdbcType="VARCHAR" property="pic" />
+    <result column="ENROLLTIME" jdbcType="VARCHAR" property="enrolltime" />
+    <result column="DEADLINETIME" jdbcType="VARCHAR" property="deadlinetime" />
+    <result column="STRATTIME" jdbcType="VARCHAR" property="strattime" />
+    <result column="ENDTIME" jdbcType="VARCHAR" property="endtime" />
+    <result column="CREATETIME" jdbcType="VARCHAR" property="createtime" />
+    <result column="UPDATETIME" jdbcType="VARCHAR" property="updatetime" />
+    <result column="ENROLLMENT" jdbcType="VARCHAR" property="enrollment" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="OPERATOR" jdbcType="VARCHAR" property="operator" />
+    <result column="TEACHERNAME" jdbcType="VARCHAR" property="teachername" />
+    <result column="MAXENROLLMENT" jdbcType="VARCHAR" property="maxenrollment" />
+    <result column="TRAININGPLACE" jdbcType="VARCHAR" property="trainingplace" />
+    <result column="TRAININGCLASS" jdbcType="VARCHAR" property="trainingclass" />
+    <result column="REQUIREMENT" jdbcType="VARCHAR" property="requirement" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="ISINHERIT" jdbcType="VARCHAR" property="isinherit" />
+    <result column="COURSE_RATE" jdbcType="VARCHAR" property="courseRate" />
+    <result column="PAPER_RATE" jdbcType="VARCHAR" property="paperRate" />
+    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+    <result column="PUBLISHTIME" jdbcType="VARCHAR" property="publishtime" />
+    <result column="ADMIN_SINGUP_SMS" jdbcType="VARCHAR" property="adminSingupSms" />
+    <result column="OVER_REMIND_SMS" jdbcType="VARCHAR" property="overRemindSms" />
+    <result column="OVER_REMIND_DAYS" jdbcType="VARCHAR" property="overRemindDays" />
+    <result column="HEADMASTER" jdbcType="VARCHAR" property="headmaster" />
+    <result column="CONTACT_INFO" jdbcType="VARCHAR" property="contactInfo" />
+    <result column="ORGANIZER" jdbcType="VARCHAR" property="organizer" />
+    <result column="IS_CAL_CREDIT" jdbcType="VARCHAR" property="isCalCredit" />
+    <result column="IS_SEND_MSG" jdbcType="VARCHAR" property="isSendMsg" />
+    <result column="OPEN_CLASS_SMS" jdbcType="VARCHAR" property="openClassSms" />
+    <result column="OPEN_CLASS_DAYS" jdbcType="VARCHAR" property="openClassDays" />
+    <result column="SINGUP_CHECK_SMS" jdbcType="VARCHAR" property="singupCheckSms" />
+    <result column="SIGN_CHECK" jdbcType="VARCHAR" property="signCheck" />
+    <result column="SIGN_IN" jdbcType="VARCHAR" property="signIn" />
+    <result column="OPEN_MAIL" jdbcType="VARCHAR" property="openMail" />
+    <result column="OPEN_MAIL_PHONE" jdbcType="VARCHAR" property="openMailPhone" />
+    <result column="MUST_COURSE" jdbcType="VARCHAR" property="mustCourse" />
+    <result column="MUST_COURSE_NUM" jdbcType="VARCHAR" property="mustCourseNum" />
+    <result column="MUST_COURSE_RATE" jdbcType="VARCHAR" property="mustCourseRate" />
+    <result column="SELECT_COURSE" jdbcType="VARCHAR" property="selectCourse" />
+    <result column="SELECT_COURSE_NUM" jdbcType="VARCHAR" property="selectCourseNum" />
+    <result column="SELECT_COURSE_RATE" jdbcType="VARCHAR" property="selectCourseRate" />
+    <result column="FINAL_EXAM" jdbcType="VARCHAR" property="finalExam" />
+    <result column="FINAL_EXAM_NUM" jdbcType="VARCHAR" property="finalExamNum" />
+    <result column="FINAL_EXAM_RATE" jdbcType="VARCHAR" property="finalExamRate" />
+    <result column="EXCERCISE" jdbcType="VARCHAR" property="excercise" />
+    <result column="EXCERCISE_NUM" jdbcType="VARCHAR" property="excerciseNum" />
+    <result column="EXCERCISE_RATE" jdbcType="VARCHAR" property="excerciseRate" />
+    <result column="ONLINE_TALK" jdbcType="VARCHAR" property="onlineTalk" />
+    <result column="ONLINE_TALK_NUM" jdbcType="VARCHAR" property="onlineTalkNum" />
+    <result column="ONLINE_TALK_RATE" jdbcType="VARCHAR" property="onlineTalkRate" />
+    <result column="QUESTIONNAIRE" jdbcType="VARCHAR" property="questionnaire" />
+    <result column="QUESTIONNAIRE_NUM" jdbcType="VARCHAR" property="questionnaireNum" />
+    <result column="QUESTIONNAIRE_RATE" jdbcType="VARCHAR" property="questionnaireRate" />
+    <result column="READ_DOC" jdbcType="VARCHAR" property="readDoc" />
+    <result column="READ_DOC_NUM" jdbcType="VARCHAR" property="readDocNum" />
+    <result column="READ_DOC_RATE" jdbcType="VARCHAR" property="readDocRate" />
+    <result column="ELECTIVE_COURSE" jdbcType="VARCHAR" property="electiveCourse" />
+    <result column="HOST" jdbcType="VARCHAR" property="host" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, INFO, TYPEID, CREDIT, LENGTH, PIC, ENROLLTIME, DEADLINETIME, STRATTIME, 
+    ENDTIME, CREATETIME, UPDATETIME, ENROLLMENT, STATUS, OPERATOR, TEACHERNAME, MAXENROLLMENT, 
+    TRAININGPLACE, TRAININGCLASS, REQUIREMENT, TYPE, ISINHERIT, COURSE_RATE, PAPER_RATE, 
+    SOURCE, PUBLISHTIME, ADMIN_SINGUP_SMS, OVER_REMIND_SMS, OVER_REMIND_DAYS, HEADMASTER, 
+    CONTACT_INFO, ORGANIZER, IS_CAL_CREDIT, IS_SEND_MSG, OPEN_CLASS_SMS, OPEN_CLASS_DAYS, 
+    SINGUP_CHECK_SMS, SIGN_CHECK, SIGN_IN, OPEN_MAIL, OPEN_MAIL_PHONE, MUST_COURSE, MUST_COURSE_NUM, 
+    MUST_COURSE_RATE, SELECT_COURSE, SELECT_COURSE_NUM, SELECT_COURSE_RATE, FINAL_EXAM, 
+    FINAL_EXAM_NUM, FINAL_EXAM_RATE, EXCERCISE, EXCERCISE_NUM, EXCERCISE_RATE, ONLINE_TALK, 
+    ONLINE_TALK_NUM, ONLINE_TALK_RATE, QUESTIONNAIRE, QUESTIONNAIRE_NUM, QUESTIONNAIRE_RATE, 
+    READ_DOC, READ_DOC_NUM, READ_DOC_RATE, ELECTIVE_COURSE, HOST
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zw_trainingcourse
+    where ID = #{id,jdbcType=VARCHAR}
+    and STATUS = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zw_trainingcourse
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.ZwTrainingcourse">
+    insert into zw_trainingcourse (ID, NAME, INFO, 
+      TYPEID, CREDIT, LENGTH, 
+      PIC, ENROLLTIME, DEADLINETIME, 
+      STRATTIME, ENDTIME, CREATETIME, 
+      UPDATETIME, ENROLLMENT, STATUS, 
+      OPERATOR, TEACHERNAME, MAXENROLLMENT, 
+      TRAININGPLACE, TRAININGCLASS, REQUIREMENT, 
+      TYPE, ISINHERIT, COURSE_RATE, 
+      PAPER_RATE, SOURCE, PUBLISHTIME, 
+      ADMIN_SINGUP_SMS, OVER_REMIND_SMS, OVER_REMIND_DAYS, 
+      HEADMASTER, CONTACT_INFO, ORGANIZER, 
+      IS_CAL_CREDIT, IS_SEND_MSG, OPEN_CLASS_SMS, 
+      OPEN_CLASS_DAYS, SINGUP_CHECK_SMS, SIGN_CHECK, 
+      SIGN_IN, OPEN_MAIL, OPEN_MAIL_PHONE, 
+      MUST_COURSE, MUST_COURSE_NUM, MUST_COURSE_RATE, 
+      SELECT_COURSE, SELECT_COURSE_NUM, SELECT_COURSE_RATE, 
+      FINAL_EXAM, FINAL_EXAM_NUM, FINAL_EXAM_RATE, 
+      EXCERCISE, EXCERCISE_NUM, EXCERCISE_RATE, 
+      ONLINE_TALK, ONLINE_TALK_NUM, ONLINE_TALK_RATE, 
+      QUESTIONNAIRE, QUESTIONNAIRE_NUM, QUESTIONNAIRE_RATE, 
+      READ_DOC, READ_DOC_NUM, READ_DOC_RATE, 
+      ELECTIVE_COURSE, HOST)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
+      #{typeid,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR}, #{enrolltime,jdbcType=VARCHAR}, #{deadlinetime,jdbcType=VARCHAR}, 
+      #{strattime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{enrollment,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, #{maxenrollment,jdbcType=VARCHAR}, 
+      #{trainingplace,jdbcType=VARCHAR}, #{trainingclass,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{isinherit,jdbcType=VARCHAR}, #{courseRate,jdbcType=VARCHAR}, 
+      #{paperRate,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{publishtime,jdbcType=VARCHAR}, 
+      #{adminSingupSms,jdbcType=VARCHAR}, #{overRemindSms,jdbcType=VARCHAR}, #{overRemindDays,jdbcType=VARCHAR}, 
+      #{headmaster,jdbcType=VARCHAR}, #{contactInfo,jdbcType=VARCHAR}, #{organizer,jdbcType=VARCHAR}, 
+      #{isCalCredit,jdbcType=VARCHAR}, #{isSendMsg,jdbcType=VARCHAR}, #{openClassSms,jdbcType=VARCHAR}, 
+      #{openClassDays,jdbcType=VARCHAR}, #{singupCheckSms,jdbcType=VARCHAR}, #{signCheck,jdbcType=VARCHAR}, 
+      #{signIn,jdbcType=VARCHAR}, #{openMail,jdbcType=VARCHAR}, #{openMailPhone,jdbcType=VARCHAR}, 
+      #{mustCourse,jdbcType=VARCHAR}, #{mustCourseNum,jdbcType=VARCHAR}, #{mustCourseRate,jdbcType=VARCHAR}, 
+      #{selectCourse,jdbcType=VARCHAR}, #{selectCourseNum,jdbcType=VARCHAR}, #{selectCourseRate,jdbcType=VARCHAR}, 
+      #{finalExam,jdbcType=VARCHAR}, #{finalExamNum,jdbcType=VARCHAR}, #{finalExamRate,jdbcType=VARCHAR}, 
+      #{excercise,jdbcType=VARCHAR}, #{excerciseNum,jdbcType=VARCHAR}, #{excerciseRate,jdbcType=VARCHAR}, 
+      #{onlineTalk,jdbcType=VARCHAR}, #{onlineTalkNum,jdbcType=VARCHAR}, #{onlineTalkRate,jdbcType=VARCHAR}, 
+      #{questionnaire,jdbcType=VARCHAR}, #{questionnaireNum,jdbcType=VARCHAR}, #{questionnaireRate,jdbcType=VARCHAR}, 
+      #{readDoc,jdbcType=VARCHAR}, #{readDocNum,jdbcType=VARCHAR}, #{readDocRate,jdbcType=VARCHAR}, 
+      #{electiveCourse,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.ZwTrainingcourse">
+    insert into zw_trainingcourse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="info != null">
+        INFO,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+      <if test="credit != null">
+        CREDIT,
+      </if>
+      <if test="length != null">
+        LENGTH,
+      </if>
+      <if test="pic != null">
+        PIC,
+      </if>
+      <if test="enrolltime != null">
+        ENROLLTIME,
+      </if>
+      <if test="deadlinetime != null">
+        DEADLINETIME,
+      </if>
+      <if test="strattime != null">
+        STRATTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="enrollment != null">
+        ENROLLMENT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="teachername != null">
+        TEACHERNAME,
+      </if>
+      <if test="maxenrollment != null">
+        MAXENROLLMENT,
+      </if>
+      <if test="trainingplace != null">
+        TRAININGPLACE,
+      </if>
+      <if test="trainingclass != null">
+        TRAININGCLASS,
+      </if>
+      <if test="requirement != null">
+        REQUIREMENT,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="isinherit != null">
+        ISINHERIT,
+      </if>
+      <if test="courseRate != null">
+        COURSE_RATE,
+      </if>
+      <if test="paperRate != null">
+        PAPER_RATE,
+      </if>
+      <if test="source != null">
+        SOURCE,
+      </if>
+      <if test="publishtime != null">
+        PUBLISHTIME,
+      </if>
+      <if test="adminSingupSms != null">
+        ADMIN_SINGUP_SMS,
+      </if>
+      <if test="overRemindSms != null">
+        OVER_REMIND_SMS,
+      </if>
+      <if test="overRemindDays != null">
+        OVER_REMIND_DAYS,
+      </if>
+      <if test="headmaster != null">
+        HEADMASTER,
+      </if>
+      <if test="contactInfo != null">
+        CONTACT_INFO,
+      </if>
+      <if test="organizer != null">
+        ORGANIZER,
+      </if>
+      <if test="isCalCredit != null">
+        IS_CAL_CREDIT,
+      </if>
+      <if test="isSendMsg != null">
+        IS_SEND_MSG,
+      </if>
+      <if test="openClassSms != null">
+        OPEN_CLASS_SMS,
+      </if>
+      <if test="openClassDays != null">
+        OPEN_CLASS_DAYS,
+      </if>
+      <if test="singupCheckSms != null">
+        SINGUP_CHECK_SMS,
+      </if>
+      <if test="signCheck != null">
+        SIGN_CHECK,
+      </if>
+      <if test="signIn != null">
+        SIGN_IN,
+      </if>
+      <if test="openMail != null">
+        OPEN_MAIL,
+      </if>
+      <if test="openMailPhone != null">
+        OPEN_MAIL_PHONE,
+      </if>
+      <if test="mustCourse != null">
+        MUST_COURSE,
+      </if>
+      <if test="mustCourseNum != null">
+        MUST_COURSE_NUM,
+      </if>
+      <if test="mustCourseRate != null">
+        MUST_COURSE_RATE,
+      </if>
+      <if test="selectCourse != null">
+        SELECT_COURSE,
+      </if>
+      <if test="selectCourseNum != null">
+        SELECT_COURSE_NUM,
+      </if>
+      <if test="selectCourseRate != null">
+        SELECT_COURSE_RATE,
+      </if>
+      <if test="finalExam != null">
+        FINAL_EXAM,
+      </if>
+      <if test="finalExamNum != null">
+        FINAL_EXAM_NUM,
+      </if>
+      <if test="finalExamRate != null">
+        FINAL_EXAM_RATE,
+      </if>
+      <if test="excercise != null">
+        EXCERCISE,
+      </if>
+      <if test="excerciseNum != null">
+        EXCERCISE_NUM,
+      </if>
+      <if test="excerciseRate != null">
+        EXCERCISE_RATE,
+      </if>
+      <if test="onlineTalk != null">
+        ONLINE_TALK,
+      </if>
+      <if test="onlineTalkNum != null">
+        ONLINE_TALK_NUM,
+      </if>
+      <if test="onlineTalkRate != null">
+        ONLINE_TALK_RATE,
+      </if>
+      <if test="questionnaire != null">
+        QUESTIONNAIRE,
+      </if>
+      <if test="questionnaireNum != null">
+        QUESTIONNAIRE_NUM,
+      </if>
+      <if test="questionnaireRate != null">
+        QUESTIONNAIRE_RATE,
+      </if>
+      <if test="readDoc != null">
+        READ_DOC,
+      </if>
+      <if test="readDocNum != null">
+        READ_DOC_NUM,
+      </if>
+      <if test="readDocRate != null">
+        READ_DOC_RATE,
+      </if>
+      <if test="electiveCourse != null">
+        ELECTIVE_COURSE,
+      </if>
+      <if test="host != null">
+        HOST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolltime != null">
+        #{enrolltime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlinetime != null">
+        #{deadlinetime,jdbcType=VARCHAR},
+      </if>
+      <if test="strattime != null">
+        #{strattime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollment != null">
+        #{enrollment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="maxenrollment != null">
+        #{maxenrollment,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingplace != null">
+        #{trainingplace,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingclass != null">
+        #{trainingclass,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isinherit != null">
+        #{isinherit,jdbcType=VARCHAR},
+      </if>
+      <if test="courseRate != null">
+        #{courseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="paperRate != null">
+        #{paperRate,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSingupSms != null">
+        #{adminSingupSms,jdbcType=VARCHAR},
+      </if>
+      <if test="overRemindSms != null">
+        #{overRemindSms,jdbcType=VARCHAR},
+      </if>
+      <if test="overRemindDays != null">
+        #{overRemindDays,jdbcType=VARCHAR},
+      </if>
+      <if test="headmaster != null">
+        #{headmaster,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null">
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="isCalCredit != null">
+        #{isCalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="isSendMsg != null">
+        #{isSendMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="openClassSms != null">
+        #{openClassSms,jdbcType=VARCHAR},
+      </if>
+      <if test="openClassDays != null">
+        #{openClassDays,jdbcType=VARCHAR},
+      </if>
+      <if test="singupCheckSms != null">
+        #{singupCheckSms,jdbcType=VARCHAR},
+      </if>
+      <if test="signCheck != null">
+        #{signCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="signIn != null">
+        #{signIn,jdbcType=VARCHAR},
+      </if>
+      <if test="openMail != null">
+        #{openMail,jdbcType=VARCHAR},
+      </if>
+      <if test="openMailPhone != null">
+        #{openMailPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourse != null">
+        #{mustCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourseNum != null">
+        #{mustCourseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourseRate != null">
+        #{mustCourseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourse != null">
+        #{selectCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourseNum != null">
+        #{selectCourseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourseRate != null">
+        #{selectCourseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExam != null">
+        #{finalExam,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExamNum != null">
+        #{finalExamNum,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExamRate != null">
+        #{finalExamRate,jdbcType=VARCHAR},
+      </if>
+      <if test="excercise != null">
+        #{excercise,jdbcType=VARCHAR},
+      </if>
+      <if test="excerciseNum != null">
+        #{excerciseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="excerciseRate != null">
+        #{excerciseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalk != null">
+        #{onlineTalk,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalkNum != null">
+        #{onlineTalkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalkRate != null">
+        #{onlineTalkRate,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaire != null">
+        #{questionnaire,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireNum != null">
+        #{questionnaireNum,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireRate != null">
+        #{questionnaireRate,jdbcType=VARCHAR},
+      </if>
+      <if test="readDoc != null">
+        #{readDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="readDocNum != null">
+        #{readDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="readDocRate != null">
+        #{readDocRate,jdbcType=VARCHAR},
+      </if>
+      <if test="electiveCourse != null">
+        #{electiveCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        #{host,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.ZwTrainingcourse">
+    update zw_trainingcourse
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        INFO = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        CREDIT = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        LENGTH = #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        PIC = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolltime != null">
+        ENROLLTIME = #{enrolltime,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlinetime != null">
+        DEADLINETIME = #{deadlinetime,jdbcType=VARCHAR},
+      </if>
+      <if test="strattime != null">
+        STRATTIME = #{strattime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        ENDTIME = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollment != null">
+        ENROLLMENT = #{enrollment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        TEACHERNAME = #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="maxenrollment != null">
+        MAXENROLLMENT = #{maxenrollment,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingplace != null">
+        TRAININGPLACE = #{trainingplace,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingclass != null">
+        TRAININGCLASS = #{trainingclass,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        REQUIREMENT = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isinherit != null">
+        ISINHERIT = #{isinherit,jdbcType=VARCHAR},
+      </if>
+      <if test="courseRate != null">
+        COURSE_RATE = #{courseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="paperRate != null">
+        PAPER_RATE = #{paperRate,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        PUBLISHTIME = #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminSingupSms != null">
+        ADMIN_SINGUP_SMS = #{adminSingupSms,jdbcType=VARCHAR},
+      </if>
+      <if test="overRemindSms != null">
+        OVER_REMIND_SMS = #{overRemindSms,jdbcType=VARCHAR},
+      </if>
+      <if test="overRemindDays != null">
+        OVER_REMIND_DAYS = #{overRemindDays,jdbcType=VARCHAR},
+      </if>
+      <if test="headmaster != null">
+        HEADMASTER = #{headmaster,jdbcType=VARCHAR},
+      </if>
+      <if test="contactInfo != null">
+        CONTACT_INFO = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        ORGANIZER = #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="isCalCredit != null">
+        IS_CAL_CREDIT = #{isCalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="isSendMsg != null">
+        IS_SEND_MSG = #{isSendMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="openClassSms != null">
+        OPEN_CLASS_SMS = #{openClassSms,jdbcType=VARCHAR},
+      </if>
+      <if test="openClassDays != null">
+        OPEN_CLASS_DAYS = #{openClassDays,jdbcType=VARCHAR},
+      </if>
+      <if test="singupCheckSms != null">
+        SINGUP_CHECK_SMS = #{singupCheckSms,jdbcType=VARCHAR},
+      </if>
+      <if test="signCheck != null">
+        SIGN_CHECK = #{signCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="signIn != null">
+        SIGN_IN = #{signIn,jdbcType=VARCHAR},
+      </if>
+      <if test="openMail != null">
+        OPEN_MAIL = #{openMail,jdbcType=VARCHAR},
+      </if>
+      <if test="openMailPhone != null">
+        OPEN_MAIL_PHONE = #{openMailPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourse != null">
+        MUST_COURSE = #{mustCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourseNum != null">
+        MUST_COURSE_NUM = #{mustCourseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCourseRate != null">
+        MUST_COURSE_RATE = #{mustCourseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourse != null">
+        SELECT_COURSE = #{selectCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourseNum != null">
+        SELECT_COURSE_NUM = #{selectCourseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="selectCourseRate != null">
+        SELECT_COURSE_RATE = #{selectCourseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExam != null">
+        FINAL_EXAM = #{finalExam,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExamNum != null">
+        FINAL_EXAM_NUM = #{finalExamNum,jdbcType=VARCHAR},
+      </if>
+      <if test="finalExamRate != null">
+        FINAL_EXAM_RATE = #{finalExamRate,jdbcType=VARCHAR},
+      </if>
+      <if test="excercise != null">
+        EXCERCISE = #{excercise,jdbcType=VARCHAR},
+      </if>
+      <if test="excerciseNum != null">
+        EXCERCISE_NUM = #{excerciseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="excerciseRate != null">
+        EXCERCISE_RATE = #{excerciseRate,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalk != null">
+        ONLINE_TALK = #{onlineTalk,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalkNum != null">
+        ONLINE_TALK_NUM = #{onlineTalkNum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTalkRate != null">
+        ONLINE_TALK_RATE = #{onlineTalkRate,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaire != null">
+        QUESTIONNAIRE = #{questionnaire,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireNum != null">
+        QUESTIONNAIRE_NUM = #{questionnaireNum,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireRate != null">
+        QUESTIONNAIRE_RATE = #{questionnaireRate,jdbcType=VARCHAR},
+      </if>
+      <if test="readDoc != null">
+        READ_DOC = #{readDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="readDocNum != null">
+        READ_DOC_NUM = #{readDocNum,jdbcType=VARCHAR},
+      </if>
+      <if test="readDocRate != null">
+        READ_DOC_RATE = #{readDocRate,jdbcType=VARCHAR},
+      </if>
+      <if test="electiveCourse != null">
+        ELECTIVE_COURSE = #{electiveCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        HOST = #{host,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.ZwTrainingcourse">
+    update zw_trainingcourse
+    set NAME = #{name,jdbcType=VARCHAR},
+      INFO = #{info,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR},
+      CREDIT = #{credit,jdbcType=VARCHAR},
+      LENGTH = #{length,jdbcType=VARCHAR},
+      PIC = #{pic,jdbcType=VARCHAR},
+      ENROLLTIME = #{enrolltime,jdbcType=VARCHAR},
+      DEADLINETIME = #{deadlinetime,jdbcType=VARCHAR},
+      STRATTIME = #{strattime,jdbcType=VARCHAR},
+      ENDTIME = #{endtime,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      ENROLLMENT = #{enrollment,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      TEACHERNAME = #{teachername,jdbcType=VARCHAR},
+      MAXENROLLMENT = #{maxenrollment,jdbcType=VARCHAR},
+      TRAININGPLACE = #{trainingplace,jdbcType=VARCHAR},
+      TRAININGCLASS = #{trainingclass,jdbcType=VARCHAR},
+      REQUIREMENT = #{requirement,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      ISINHERIT = #{isinherit,jdbcType=VARCHAR},
+      COURSE_RATE = #{courseRate,jdbcType=VARCHAR},
+      PAPER_RATE = #{paperRate,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      PUBLISHTIME = #{publishtime,jdbcType=VARCHAR},
+      ADMIN_SINGUP_SMS = #{adminSingupSms,jdbcType=VARCHAR},
+      OVER_REMIND_SMS = #{overRemindSms,jdbcType=VARCHAR},
+      OVER_REMIND_DAYS = #{overRemindDays,jdbcType=VARCHAR},
+      HEADMASTER = #{headmaster,jdbcType=VARCHAR},
+      CONTACT_INFO = #{contactInfo,jdbcType=VARCHAR},
+      ORGANIZER = #{organizer,jdbcType=VARCHAR},
+      IS_CAL_CREDIT = #{isCalCredit,jdbcType=VARCHAR},
+      IS_SEND_MSG = #{isSendMsg,jdbcType=VARCHAR},
+      OPEN_CLASS_SMS = #{openClassSms,jdbcType=VARCHAR},
+      OPEN_CLASS_DAYS = #{openClassDays,jdbcType=VARCHAR},
+      SINGUP_CHECK_SMS = #{singupCheckSms,jdbcType=VARCHAR},
+      SIGN_CHECK = #{signCheck,jdbcType=VARCHAR},
+      SIGN_IN = #{signIn,jdbcType=VARCHAR},
+      OPEN_MAIL = #{openMail,jdbcType=VARCHAR},
+      OPEN_MAIL_PHONE = #{openMailPhone,jdbcType=VARCHAR},
+      MUST_COURSE = #{mustCourse,jdbcType=VARCHAR},
+      MUST_COURSE_NUM = #{mustCourseNum,jdbcType=VARCHAR},
+      MUST_COURSE_RATE = #{mustCourseRate,jdbcType=VARCHAR},
+      SELECT_COURSE = #{selectCourse,jdbcType=VARCHAR},
+      SELECT_COURSE_NUM = #{selectCourseNum,jdbcType=VARCHAR},
+      SELECT_COURSE_RATE = #{selectCourseRate,jdbcType=VARCHAR},
+      FINAL_EXAM = #{finalExam,jdbcType=VARCHAR},
+      FINAL_EXAM_NUM = #{finalExamNum,jdbcType=VARCHAR},
+      FINAL_EXAM_RATE = #{finalExamRate,jdbcType=VARCHAR},
+      EXCERCISE = #{excercise,jdbcType=VARCHAR},
+      EXCERCISE_NUM = #{excerciseNum,jdbcType=VARCHAR},
+      EXCERCISE_RATE = #{excerciseRate,jdbcType=VARCHAR},
+      ONLINE_TALK = #{onlineTalk,jdbcType=VARCHAR},
+      ONLINE_TALK_NUM = #{onlineTalkNum,jdbcType=VARCHAR},
+      ONLINE_TALK_RATE = #{onlineTalkRate,jdbcType=VARCHAR},
+      QUESTIONNAIRE = #{questionnaire,jdbcType=VARCHAR},
+      QUESTIONNAIRE_NUM = #{questionnaireNum,jdbcType=VARCHAR},
+      QUESTIONNAIRE_RATE = #{questionnaireRate,jdbcType=VARCHAR},
+      READ_DOC = #{readDoc,jdbcType=VARCHAR},
+      READ_DOC_NUM = #{readDocNum,jdbcType=VARCHAR},
+      READ_DOC_RATE = #{readDocRate,jdbcType=VARCHAR},
+      ELECTIVE_COURSE = #{electiveCourse,jdbcType=VARCHAR},
+      HOST = #{host,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

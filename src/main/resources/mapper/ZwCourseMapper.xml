@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZwCourseMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.ZwCourse">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="INFO" jdbcType="VARCHAR" property="info" />
+    <result column="TEACHERNAME" jdbcType="VARCHAR" property="teachername" />
+    <result column="TEACHERINFO" jdbcType="VARCHAR" property="teacherinfo" />
+    <result column="POST" jdbcType="VARCHAR" property="post" />
+    <result column="HONOR" jdbcType="VARCHAR" property="honor" />
+    <result column="KEYWORD" jdbcType="VARCHAR" property="keyword" />
+    <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="LENGTH" jdbcType="VARCHAR" property="length" />
+    <result column="ISFREE" jdbcType="CHAR" property="isfree" />
+    <result column="PPATH" jdbcType="VARCHAR" property="ppath" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="FLD1" jdbcType="VARCHAR" property="fld1" />
+    <result column="FLD2" jdbcType="VARCHAR" property="fld2" />
+    <result column="CREATTIME" jdbcType="VARCHAR" property="creattime" />
+    <result column="UPDATETIME" jdbcType="VARCHAR" property="updatetime" />
+    <result column="SETNUM" jdbcType="VARCHAR" property="setnum" />
+    <result column="CSWID" jdbcType="VARCHAR" property="cswid" />
+    <result column="DOWNSUM" jdbcType="VARCHAR" property="downsum" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+    <result column="CREDIT" jdbcType="VARCHAR" property="credit" />
+    <result column="ISTOP" jdbcType="CHAR" property="istop" />
+    <result column="RECOMMENDTIME" jdbcType="VARCHAR" property="recommendtime" />
+    <result column="HOTTIME" jdbcType="VARCHAR" property="hottime" />
+    <result column="PIC" jdbcType="CHAR" property="pic" />
+    <result column="ENROLLMENT" jdbcType="CHAR" property="enrollment" />
+    <result column="ISEXAM" jdbcType="VARCHAR" property="isexam" />
+    <result column="EXAMID" jdbcType="VARCHAR" property="examid" />
+    <result column="EXAMPRECENT" jdbcType="VARCHAR" property="examprecent" />
+    <result column="ISEXERCISE" jdbcType="VARCHAR" property="isexercise" />
+    <result column="EXERCISEPERCENT" jdbcType="VARCHAR" property="exercisepercent" />
+    <result column="ISREVIEW" jdbcType="VARCHAR" property="isreview" />
+    <result column="REVIEWPERCENT" jdbcType="VARCHAR" property="reviewpercent" />
+    <result column="ISQUESTIONNAIRE" jdbcType="VARCHAR" property="isquestionnaire" />
+    <result column="QUESTIONNAIREPERCENT" jdbcType="VARCHAR" property="questionnairepercent" />
+    <result column="COURSEWAREREPERCENT" jdbcType="VARCHAR" property="coursewarerepercent" />
+    <result column="FILEID" jdbcType="VARCHAR" property="fileid" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CHECKTIME" jdbcType="VARCHAR" property="checktime" />
+    <result column="PLATFORM" jdbcType="VARCHAR" property="platform" />
+    <result column="COURSEWAREID" jdbcType="VARCHAR" property="coursewareid" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="COMMENTSCORE" jdbcType="VARCHAR" property="commentscore" />
+    <result column="PUBLISHTIME" jdbcType="VARCHAR" property="publishtime" />
+    <result column="PIC_SMALL" jdbcType="VARCHAR" property="picSmall" />
+    <result column="FORMAT" jdbcType="VARCHAR" property="format" />
+    <result column="TEACHER_PIC" jdbcType="VARCHAR" property="teacherPic" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="SOURCETYPE" jdbcType="VARCHAR" property="sourcetype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, INFO, TEACHERNAME, TEACHERINFO, POST, HONOR, KEYWORD, TAG, LENGTH, ISFREE, 
+    PPATH, STATUS, FLD1, FLD2, CREATTIME, UPDATETIME, SETNUM, CSWID, DOWNSUM, TYPEID, 
+    CREDIT, ISTOP, RECOMMENDTIME, HOTTIME, PIC, ENROLLMENT, ISEXAM, EXAMID, EXAMPRECENT, 
+    ISEXERCISE, EXERCISEPERCENT, ISREVIEW, REVIEWPERCENT, ISQUESTIONNAIRE, QUESTIONNAIREPERCENT, 
+    COURSEWAREREPERCENT, FILEID, REMARK, CHECKTIME, PLATFORM, COURSEWAREID, DESCRIPTION, 
+    COMMENTSCORE, PUBLISHTIME, PIC_SMALL, FORMAT, TEACHER_PIC, COMPANY, SOURCETYPE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zw_course
+    where ID = #{id,jdbcType=VARCHAR}
+    and STATUS = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zw_course
+    where ID = #{id,jdbcType=VARCHAR}
+    and
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.ZwCourse">
+    insert into zw_course (ID, NAME, INFO, 
+      TEACHERNAME, TEACHERINFO, POST, 
+      HONOR, KEYWORD, TAG, 
+      LENGTH, ISFREE, PPATH, 
+      STATUS, FLD1, FLD2, 
+      CREATTIME, UPDATETIME, SETNUM, 
+      CSWID, DOWNSUM, TYPEID, 
+      CREDIT, ISTOP, RECOMMENDTIME, 
+      HOTTIME, PIC, ENROLLMENT, 
+      ISEXAM, EXAMID, EXAMPRECENT, 
+      ISEXERCISE, EXERCISEPERCENT, ISREVIEW, 
+      REVIEWPERCENT, ISQUESTIONNAIRE, QUESTIONNAIREPERCENT, 
+      COURSEWAREREPERCENT, FILEID, REMARK, 
+      CHECKTIME, PLATFORM, COURSEWAREID, 
+      DESCRIPTION, COMMENTSCORE, PUBLISHTIME, 
+      PIC_SMALL, FORMAT, TEACHER_PIC, 
+      COMPANY, SOURCETYPE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
+      #{teachername,jdbcType=VARCHAR}, #{teacherinfo,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR}, 
+      #{honor,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{length,jdbcType=VARCHAR}, #{isfree,jdbcType=CHAR}, #{ppath,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{fld1,jdbcType=VARCHAR}, #{fld2,jdbcType=VARCHAR}, 
+      #{creattime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{setnum,jdbcType=VARCHAR}, 
+      #{cswid,jdbcType=VARCHAR}, #{downsum,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=VARCHAR}, #{istop,jdbcType=CHAR}, #{recommendtime,jdbcType=VARCHAR}, 
+      #{hottime,jdbcType=VARCHAR}, #{pic,jdbcType=CHAR}, #{enrollment,jdbcType=CHAR}, 
+      #{isexam,jdbcType=VARCHAR}, #{examid,jdbcType=VARCHAR}, #{examprecent,jdbcType=VARCHAR}, 
+      #{isexercise,jdbcType=VARCHAR}, #{exercisepercent,jdbcType=VARCHAR}, #{isreview,jdbcType=VARCHAR}, 
+      #{reviewpercent,jdbcType=VARCHAR}, #{isquestionnaire,jdbcType=VARCHAR}, #{questionnairepercent,jdbcType=VARCHAR}, 
+      #{coursewarerepercent,jdbcType=VARCHAR}, #{fileid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{checktime,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR}, #{coursewareid,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{commentscore,jdbcType=VARCHAR}, #{publishtime,jdbcType=VARCHAR}, 
+      #{picSmall,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, #{teacherPic,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{sourcetype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.ZwCourse">
+    insert into zw_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="info != null">
+        INFO,
+      </if>
+      <if test="teachername != null">
+        TEACHERNAME,
+      </if>
+      <if test="teacherinfo != null">
+        TEACHERINFO,
+      </if>
+      <if test="post != null">
+        POST,
+      </if>
+      <if test="honor != null">
+        HONOR,
+      </if>
+      <if test="keyword != null">
+        KEYWORD,
+      </if>
+      <if test="tag != null">
+        TAG,
+      </if>
+      <if test="length != null">
+        LENGTH,
+      </if>
+      <if test="isfree != null">
+        ISFREE,
+      </if>
+      <if test="ppath != null">
+        PPATH,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="fld1 != null">
+        FLD1,
+      </if>
+      <if test="fld2 != null">
+        FLD2,
+      </if>
+      <if test="creattime != null">
+        CREATTIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="setnum != null">
+        SETNUM,
+      </if>
+      <if test="cswid != null">
+        CSWID,
+      </if>
+      <if test="downsum != null">
+        DOWNSUM,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+      <if test="credit != null">
+        CREDIT,
+      </if>
+      <if test="istop != null">
+        ISTOP,
+      </if>
+      <if test="recommendtime != null">
+        RECOMMENDTIME,
+      </if>
+      <if test="hottime != null">
+        HOTTIME,
+      </if>
+      <if test="pic != null">
+        PIC,
+      </if>
+      <if test="enrollment != null">
+        ENROLLMENT,
+      </if>
+      <if test="isexam != null">
+        ISEXAM,
+      </if>
+      <if test="examid != null">
+        EXAMID,
+      </if>
+      <if test="examprecent != null">
+        EXAMPRECENT,
+      </if>
+      <if test="isexercise != null">
+        ISEXERCISE,
+      </if>
+      <if test="exercisepercent != null">
+        EXERCISEPERCENT,
+      </if>
+      <if test="isreview != null">
+        ISREVIEW,
+      </if>
+      <if test="reviewpercent != null">
+        REVIEWPERCENT,
+      </if>
+      <if test="isquestionnaire != null">
+        ISQUESTIONNAIRE,
+      </if>
+      <if test="questionnairepercent != null">
+        QUESTIONNAIREPERCENT,
+      </if>
+      <if test="coursewarerepercent != null">
+        COURSEWAREREPERCENT,
+      </if>
+      <if test="fileid != null">
+        FILEID,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="checktime != null">
+        CHECKTIME,
+      </if>
+      <if test="platform != null">
+        PLATFORM,
+      </if>
+      <if test="coursewareid != null">
+        COURSEWAREID,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="commentscore != null">
+        COMMENTSCORE,
+      </if>
+      <if test="publishtime != null">
+        PUBLISHTIME,
+      </if>
+      <if test="picSmall != null">
+        PIC_SMALL,
+      </if>
+      <if test="format != null">
+        FORMAT,
+      </if>
+      <if test="teacherPic != null">
+        TEACHER_PIC,
+      </if>
+      <if test="company != null">
+        COMPANY,
+      </if>
+      <if test="sourcetype != null">
+        SOURCETYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherinfo != null">
+        #{teacherinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null">
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="honor != null">
+        #{honor,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="isfree != null">
+        #{isfree,jdbcType=CHAR},
+      </if>
+      <if test="ppath != null">
+        #{ppath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="fld1 != null">
+        #{fld1,jdbcType=VARCHAR},
+      </if>
+      <if test="fld2 != null">
+        #{fld2,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null">
+        #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="setnum != null">
+        #{setnum,jdbcType=VARCHAR},
+      </if>
+      <if test="cswid != null">
+        #{cswid,jdbcType=VARCHAR},
+      </if>
+      <if test="downsum != null">
+        #{downsum,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=CHAR},
+      </if>
+      <if test="recommendtime != null">
+        #{recommendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="hottime != null">
+        #{hottime,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=CHAR},
+      </if>
+      <if test="enrollment != null">
+        #{enrollment,jdbcType=CHAR},
+      </if>
+      <if test="isexam != null">
+        #{isexam,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null">
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="examprecent != null">
+        #{examprecent,jdbcType=VARCHAR},
+      </if>
+      <if test="isexercise != null">
+        #{isexercise,jdbcType=VARCHAR},
+      </if>
+      <if test="exercisepercent != null">
+        #{exercisepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreview != null">
+        #{isreview,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewpercent != null">
+        #{reviewpercent,jdbcType=VARCHAR},
+      </if>
+      <if test="isquestionnaire != null">
+        #{isquestionnaire,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnairepercent != null">
+        #{questionnairepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewarerepercent != null">
+        #{coursewarerepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null">
+        #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null">
+        #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null">
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewareid != null">
+        #{coursewareid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="commentscore != null">
+        #{commentscore,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="picSmall != null">
+        #{picSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPic != null">
+        #{teacherPic,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        #{sourcetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.ZwCourse">
+    update zw_course
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        INFO = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        TEACHERNAME = #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherinfo != null">
+        TEACHERINFO = #{teacherinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null">
+        POST = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="honor != null">
+        HONOR = #{honor,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        KEYWORD = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        LENGTH = #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="isfree != null">
+        ISFREE = #{isfree,jdbcType=CHAR},
+      </if>
+      <if test="ppath != null">
+        PPATH = #{ppath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="fld1 != null">
+        FLD1 = #{fld1,jdbcType=VARCHAR},
+      </if>
+      <if test="fld2 != null">
+        FLD2 = #{fld2,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null">
+        CREATTIME = #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="setnum != null">
+        SETNUM = #{setnum,jdbcType=VARCHAR},
+      </if>
+      <if test="cswid != null">
+        CSWID = #{cswid,jdbcType=VARCHAR},
+      </if>
+      <if test="downsum != null">
+        DOWNSUM = #{downsum,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        CREDIT = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="istop != null">
+        ISTOP = #{istop,jdbcType=CHAR},
+      </if>
+      <if test="recommendtime != null">
+        RECOMMENDTIME = #{recommendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="hottime != null">
+        HOTTIME = #{hottime,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        PIC = #{pic,jdbcType=CHAR},
+      </if>
+      <if test="enrollment != null">
+        ENROLLMENT = #{enrollment,jdbcType=CHAR},
+      </if>
+      <if test="isexam != null">
+        ISEXAM = #{isexam,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null">
+        EXAMID = #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="examprecent != null">
+        EXAMPRECENT = #{examprecent,jdbcType=VARCHAR},
+      </if>
+      <if test="isexercise != null">
+        ISEXERCISE = #{isexercise,jdbcType=VARCHAR},
+      </if>
+      <if test="exercisepercent != null">
+        EXERCISEPERCENT = #{exercisepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreview != null">
+        ISREVIEW = #{isreview,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewpercent != null">
+        REVIEWPERCENT = #{reviewpercent,jdbcType=VARCHAR},
+      </if>
+      <if test="isquestionnaire != null">
+        ISQUESTIONNAIRE = #{isquestionnaire,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnairepercent != null">
+        QUESTIONNAIREPERCENT = #{questionnairepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewarerepercent != null">
+        COURSEWAREREPERCENT = #{coursewarerepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null">
+        FILEID = #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null">
+        CHECKTIME = #{checktime,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null">
+        PLATFORM = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="coursewareid != null">
+        COURSEWAREID = #{coursewareid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="commentscore != null">
+        COMMENTSCORE = #{commentscore,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null">
+        PUBLISHTIME = #{publishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="picSmall != null">
+        PIC_SMALL = #{picSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        FORMAT = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPic != null">
+        TEACHER_PIC = #{teacherPic,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        SOURCETYPE = #{sourcetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.ZwCourse">
+    update zw_course
+    set NAME = #{name,jdbcType=VARCHAR},
+      INFO = #{info,jdbcType=VARCHAR},
+      TEACHERNAME = #{teachername,jdbcType=VARCHAR},
+      TEACHERINFO = #{teacherinfo,jdbcType=VARCHAR},
+      POST = #{post,jdbcType=VARCHAR},
+      HONOR = #{honor,jdbcType=VARCHAR},
+      KEYWORD = #{keyword,jdbcType=VARCHAR},
+      TAG = #{tag,jdbcType=VARCHAR},
+      LENGTH = #{length,jdbcType=VARCHAR},
+      ISFREE = #{isfree,jdbcType=CHAR},
+      PPATH = #{ppath,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      FLD1 = #{fld1,jdbcType=VARCHAR},
+      FLD2 = #{fld2,jdbcType=VARCHAR},
+      CREATTIME = #{creattime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      SETNUM = #{setnum,jdbcType=VARCHAR},
+      CSWID = #{cswid,jdbcType=VARCHAR},
+      DOWNSUM = #{downsum,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR},
+      CREDIT = #{credit,jdbcType=VARCHAR},
+      ISTOP = #{istop,jdbcType=CHAR},
+      RECOMMENDTIME = #{recommendtime,jdbcType=VARCHAR},
+      HOTTIME = #{hottime,jdbcType=VARCHAR},
+      PIC = #{pic,jdbcType=CHAR},
+      ENROLLMENT = #{enrollment,jdbcType=CHAR},
+      ISEXAM = #{isexam,jdbcType=VARCHAR},
+      EXAMID = #{examid,jdbcType=VARCHAR},
+      EXAMPRECENT = #{examprecent,jdbcType=VARCHAR},
+      ISEXERCISE = #{isexercise,jdbcType=VARCHAR},
+      EXERCISEPERCENT = #{exercisepercent,jdbcType=VARCHAR},
+      ISREVIEW = #{isreview,jdbcType=VARCHAR},
+      REVIEWPERCENT = #{reviewpercent,jdbcType=VARCHAR},
+      ISQUESTIONNAIRE = #{isquestionnaire,jdbcType=VARCHAR},
+      QUESTIONNAIREPERCENT = #{questionnairepercent,jdbcType=VARCHAR},
+      COURSEWAREREPERCENT = #{coursewarerepercent,jdbcType=VARCHAR},
+      FILEID = #{fileid,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CHECKTIME = #{checktime,jdbcType=VARCHAR},
+      PLATFORM = #{platform,jdbcType=VARCHAR},
+      COURSEWAREID = #{coursewareid,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      COMMENTSCORE = #{commentscore,jdbcType=VARCHAR},
+      PUBLISHTIME = #{publishtime,jdbcType=VARCHAR},
+      PIC_SMALL = #{picSmall,jdbcType=VARCHAR},
+      FORMAT = #{format,jdbcType=VARCHAR},
+      TEACHER_PIC = #{teacherPic,jdbcType=VARCHAR},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      SOURCETYPE = #{sourcetype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

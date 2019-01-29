@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZwQuestionnaireMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.ZwQuestionnaire">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="SUBJECT" jdbcType="VARCHAR" property="subject" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="KEYWORD" jdbcType="VARCHAR" property="keyword" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+    <result column="CREATETIME" jdbcType="VARCHAR" property="createtime" />
+    <result column="UPDATETIME" jdbcType="VARCHAR" property="updatetime" />
+    <result column="TYPE0COUNT" jdbcType="VARCHAR" property="type0count" />
+    <result column="TYPE1COUNT" jdbcType="VARCHAR" property="type1count" />
+    <result column="TYPE2COUNT" jdbcType="VARCHAR" property="type2count" />
+    <result column="TYPE3COUNT" jdbcType="VARCHAR" property="type3count" />
+    <result column="OPERATOR" jdbcType="VARCHAR" property="operator" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="IS_LIMIT_TIME" jdbcType="VARCHAR" property="isLimitTime" />
+    <result column="LIMIT_TIME" jdbcType="VARCHAR" property="limitTime" />
+    <result column="IS_LIMIT_PERSON" jdbcType="VARCHAR" property="isLimitPerson" />
+    <result column="LIMIT_PERSON" jdbcType="VARCHAR" property="limitPerson" />
+    <result column="IS_LIMIT_TOTAL" jdbcType="VARCHAR" property="isLimitTotal" />
+    <result column="LIMIT_TOTAL" jdbcType="VARCHAR" property="limitTotal" />
+    <result column="ENVIRONMENT" jdbcType="VARCHAR" property="environment" />
+    <result column="USER_NUM" jdbcType="VARCHAR" property="userNum" />
+    <result column="IS_SUBFIELD" jdbcType="VARCHAR" property="isSubfield" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SUBJECT, DESCRIPTION, NAME, TYPE, KEYWORD, TYPEID, CREATETIME, UPDATETIME, TYPE0COUNT, 
+    TYPE1COUNT, TYPE2COUNT, TYPE3COUNT, OPERATOR, REMARK, STATUS, IS_LIMIT_TIME, LIMIT_TIME, 
+    IS_LIMIT_PERSON, LIMIT_PERSON, IS_LIMIT_TOTAL, LIMIT_TOTAL, ENVIRONMENT, USER_NUM, 
+    IS_SUBFIELD
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zw_questionnaire
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zw_questionnaire
+    where ID = #{id,jdbcType=VARCHAR}
+    and STATUS = '0'
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.ZwQuestionnaire">
+    insert into zw_questionnaire (ID, SUBJECT, DESCRIPTION, 
+      NAME, TYPE, KEYWORD, 
+      TYPEID, CREATETIME, UPDATETIME, 
+      TYPE0COUNT, TYPE1COUNT, TYPE2COUNT, 
+      TYPE3COUNT, OPERATOR, REMARK, 
+      STATUS, IS_LIMIT_TIME, LIMIT_TIME, 
+      IS_LIMIT_PERSON, LIMIT_PERSON, IS_LIMIT_TOTAL, 
+      LIMIT_TOTAL, ENVIRONMENT, USER_NUM, 
+      IS_SUBFIELD)
+    values (#{id,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
+      #{typeid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{type0count,jdbcType=VARCHAR}, #{type1count,jdbcType=VARCHAR}, #{type2count,jdbcType=VARCHAR}, 
+      #{type3count,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{isLimitTime,jdbcType=VARCHAR}, #{limitTime,jdbcType=VARCHAR}, 
+      #{isLimitPerson,jdbcType=VARCHAR}, #{limitPerson,jdbcType=VARCHAR}, #{isLimitTotal,jdbcType=VARCHAR}, 
+      #{limitTotal,jdbcType=VARCHAR}, #{environment,jdbcType=VARCHAR}, #{userNum,jdbcType=VARCHAR}, 
+      #{isSubfield,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.ZwQuestionnaire">
+    insert into zw_questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="subject != null">
+        SUBJECT,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="keyword != null">
+        KEYWORD,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="type0count != null">
+        TYPE0COUNT,
+      </if>
+      <if test="type1count != null">
+        TYPE1COUNT,
+      </if>
+      <if test="type2count != null">
+        TYPE2COUNT,
+      </if>
+      <if test="type3count != null">
+        TYPE3COUNT,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="isLimitTime != null">
+        IS_LIMIT_TIME,
+      </if>
+      <if test="limitTime != null">
+        LIMIT_TIME,
+      </if>
+      <if test="isLimitPerson != null">
+        IS_LIMIT_PERSON,
+      </if>
+      <if test="limitPerson != null">
+        LIMIT_PERSON,
+      </if>
+      <if test="isLimitTotal != null">
+        IS_LIMIT_TOTAL,
+      </if>
+      <if test="limitTotal != null">
+        LIMIT_TOTAL,
+      </if>
+      <if test="environment != null">
+        ENVIRONMENT,
+      </if>
+      <if test="userNum != null">
+        USER_NUM,
+      </if>
+      <if test="isSubfield != null">
+        IS_SUBFIELD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="type0count != null">
+        #{type0count,jdbcType=VARCHAR},
+      </if>
+      <if test="type1count != null">
+        #{type1count,jdbcType=VARCHAR},
+      </if>
+      <if test="type2count != null">
+        #{type2count,jdbcType=VARCHAR},
+      </if>
+      <if test="type3count != null">
+        #{type3count,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitTime != null">
+        #{isLimitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTime != null">
+        #{limitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitPerson != null">
+        #{isLimitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerson != null">
+        #{limitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitTotal != null">
+        #{isLimitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTotal != null">
+        #{limitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="userNum != null">
+        #{userNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubfield != null">
+        #{isSubfield,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.ZwQuestionnaire">
+    update zw_questionnaire
+    <set>
+      <if test="subject != null">
+        SUBJECT = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        KEYWORD = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="type0count != null">
+        TYPE0COUNT = #{type0count,jdbcType=VARCHAR},
+      </if>
+      <if test="type1count != null">
+        TYPE1COUNT = #{type1count,jdbcType=VARCHAR},
+      </if>
+      <if test="type2count != null">
+        TYPE2COUNT = #{type2count,jdbcType=VARCHAR},
+      </if>
+      <if test="type3count != null">
+        TYPE3COUNT = #{type3count,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitTime != null">
+        IS_LIMIT_TIME = #{isLimitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTime != null">
+        LIMIT_TIME = #{limitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitPerson != null">
+        IS_LIMIT_PERSON = #{isLimitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerson != null">
+        LIMIT_PERSON = #{limitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitTotal != null">
+        IS_LIMIT_TOTAL = #{isLimitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTotal != null">
+        LIMIT_TOTAL = #{limitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        ENVIRONMENT = #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="userNum != null">
+        USER_NUM = #{userNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubfield != null">
+        IS_SUBFIELD = #{isSubfield,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.ZwQuestionnaire">
+    update zw_questionnaire
+    set SUBJECT = #{subject,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      KEYWORD = #{keyword,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      TYPE0COUNT = #{type0count,jdbcType=VARCHAR},
+      TYPE1COUNT = #{type1count,jdbcType=VARCHAR},
+      TYPE2COUNT = #{type2count,jdbcType=VARCHAR},
+      TYPE3COUNT = #{type3count,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      IS_LIMIT_TIME = #{isLimitTime,jdbcType=VARCHAR},
+      LIMIT_TIME = #{limitTime,jdbcType=VARCHAR},
+      IS_LIMIT_PERSON = #{isLimitPerson,jdbcType=VARCHAR},
+      LIMIT_PERSON = #{limitPerson,jdbcType=VARCHAR},
+      IS_LIMIT_TOTAL = #{isLimitTotal,jdbcType=VARCHAR},
+      LIMIT_TOTAL = #{limitTotal,jdbcType=VARCHAR},
+      ENVIRONMENT = #{environment,jdbcType=VARCHAR},
+      USER_NUM = #{userNum,jdbcType=VARCHAR},
+      IS_SUBFIELD = #{isSubfield,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

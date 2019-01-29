@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PerIntegrationUserMapper">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.PerIntegrationUser">
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="RIGHTS" jdbcType="VARCHAR" property="rights"/>
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
+        <result column="LAST_LOGIN" jdbcType="VARCHAR" property="lastLogin"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="BZ" jdbcType="VARCHAR" property="bz"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="SFID" jdbcType="VARCHAR" property="sfid"/>
+        <result column="START_TIME" jdbcType="VARCHAR" property="startTime"/>
+        <result column="END_TIME" jdbcType="VARCHAR" property="endTime"/>
+        <result column="YEARS" jdbcType="INTEGER" property="years"/>
+        <result column="NUMBER" jdbcType="VARCHAR" property="number"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="ORGID" jdbcType="VARCHAR" property="orgid"/>
+        <result column="TITILE" jdbcType="VARCHAR" property="titile"/>
+        <result column="SEX" jdbcType="VARCHAR" property="sex"/>
+        <result column="BIRTHDAY" jdbcType="VARCHAR" property="birthday"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    USER_ID, USERNAME, PASSWORD, NAME, RIGHTS, ROLE_ID, LAST_LOGIN, IP, STATUS, BZ, PHONE, 
+    SFID, START_TIME, END_TIME, YEARS, NUMBER, EMAIL, ORGID, TITILE, SEX, BIRTHDAY
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from per_integration_user
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByexamplePage" parameterType="page" resultType="pd">
+        select
+        <include refid="Base_Column_List"/>
+        from per_integration_user
+        where
+        1 = 1
+        <if test="pd.userNm!= null and pd.userNm!= ''"><!-- 用户名称 -->
+            and (USERNAME = #{pd.userNm}  or PHONE = #{pd.userNm})
+        </if>
+        and STATUS = '0'
+        <if test="pd.passWd!= null and pd.passWd!= ''"><!-- 用户密码 -->
+            and PASSWORD = #{pd.passWd}
+        </if>
+        <if test="pd.userId!= null and pd.userId!= ''"><!-- 用户id -->
+            and USER_ID = #{pd.userId}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from per_integration_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="org.spring.springboot.domain.PerIntegrationUser">
+    insert into per_integration_user (USER_ID, USERNAME, PASSWORD, 
+      NAME, RIGHTS, ROLE_ID, 
+      LAST_LOGIN, IP, STATUS, 
+      BZ, PHONE, SFID, START_TIME, 
+      END_TIME, YEARS, NUMBER, 
+      EMAIL, ORGID, TITILE, 
+      SEX, BIRTHDAY)
+    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{rights,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
+      #{lastLogin,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sfid,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{years,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{orgid,jdbcType=VARCHAR}, #{titile,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="org.spring.springboot.domain.PerIntegrationUser">
+        insert into per_integration_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="username != null">
+                USERNAME,
+            </if>
+            <if test="password != null">
+                PASSWORD,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="rights != null">
+                RIGHTS,
+            </if>
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="lastLogin != null">
+                LAST_LOGIN,
+            </if>
+            <if test="ip != null">
+                IP,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="bz != null">
+                BZ,
+            </if>
+            <if test="phone != null">
+                PHONE,
+            </if>
+            <if test="sfid != null">
+                SFID,
+            </if>
+            <if test="startTime != null">
+                START_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="years != null">
+                YEARS,
+            </if>
+            <if test="number != null">
+                NUMBER,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="orgid != null">
+                ORGID,
+            </if>
+            <if test="titile != null">
+                TITILE,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="birthday != null">
+                BIRTHDAY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="rights != null">
+                #{rights,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                #{lastLogin,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="bz != null">
+                #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="sfid != null">
+                #{sfid,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="years != null">
+                #{years,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid != null">
+                #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="titile != null">
+                #{titile,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.PerIntegrationUser">
+        update per_integration_user
+        <set>
+            <if test="username != null">
+                USERNAME = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="rights != null">
+                RIGHTS = #{rights,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                ROLE_ID = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                LAST_LOGIN = #{lastLogin,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                IP = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="bz != null">
+                BZ = #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="sfid != null">
+                SFID = #{sfid,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                START_TIME = #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                END_TIME = #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="years != null">
+                YEARS = #{years,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                NUMBER = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="orgid != null">
+                ORGID = #{orgid,jdbcType=VARCHAR},
+            </if>
+            <if test="titile != null">
+                TITILE = #{titile,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updatePassWord" parameterType="org.spring.springboot.domain.PerIntegrationUser">
+        update per_integration_user
+        <set>
+            <if test="ip != null">
+                PASSWORD = #{ip,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+        and PASSWORD = #{password,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.PerIntegrationUser">
+    update per_integration_user
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      RIGHTS = #{rights,jdbcType=VARCHAR},
+      ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      LAST_LOGIN = #{lastLogin,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      SFID = #{sfid,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      YEARS = #{years,jdbcType=INTEGER},
+      NUMBER = #{number,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ORGID = #{orgid,jdbcType=VARCHAR},
+      TITILE = #{titile,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PerTrainingIntegrationMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.PerTrainingIntegration">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="SCORE" jdbcType="VARCHAR" property="score" />
+    <result column="IF_GRADUATION" jdbcType="VARCHAR" property="ifGraduation" />
+    <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm" />
+    <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm" />
+    <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SCORE, IF_GRADUATION, CREATION_TM, UPDATE_TM, TM_SMP, REMARK1, REMARK2, 
+    REMARK3, REMARK4, REMARK5
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from per_training_integration
+    where ID = #{id,jdbcType=VARCHAR}
+    <if test="userId!= null and userId!= ''"><!-- 用户id -->
+      and USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!-- 根据条件和页数查询列表 -->
+  <select id="selectByexamplePage" parameterType="page" resultType="pd">
+    SELECT a.*,b.total FROM (
+    select
+    *
+    from per_training_integration
+    where
+    1 = 1
+    <if test="pd.userId!= null and pd.userId!= ''"><!-- 用户id -->
+      and   user_id = #{pd.userId}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+      and creation_tm &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+      and creation_tm &lt;= #{pd.qryTmEnd}
+    </if>
+    <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+    </if>
+    <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+    </if>
+    order by creation_tm desc  limit #{pd.limitbegin},#{pd.limitend}
+    ) a, (
+    select
+    count(ID) AS total
+    from per_training_integration
+    where
+    1 = 1
+    <if test="pd.userId!= null and pd.userId!= ''"><!-- 用户id -->
+      and   user_id = #{pd.userId}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+      and creation_tm &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+      and creation_tm &lt;= #{pd.qryTmEnd}
+    </if>
+    <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+    </if>
+    <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+      and UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+    </if>
+    ) b
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from per_training_integration
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.PerTrainingIntegration">
+    insert into per_training_integration (ID, USER_ID, SCORE, 
+      IF_GRADUATION, CREATION_TM, UPDATE_TM, 
+      TM_SMP, REMARK1, REMARK2, 
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{ifGraduation,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, 
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.PerTrainingIntegration">
+    insert into per_training_integration
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="ifGraduation != null">
+        IF_GRADUATION,
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM,
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM,
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="ifGraduation != null">
+        #{ifGraduation,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.PerTrainingIntegration">
+    update per_training_integration
+    <set>
+
+      <if test="score != null">
+        SCORE = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="ifGraduation != null">
+        IF_GRADUATION = #{ifGraduation,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+    <if test="userId!= null and userId!= ''"><!-- 用户id -->
+      and USER_ID like CONCAT(CONCAT('%', #{userId}),'%')
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.PerTrainingIntegration">
+    update per_training_integration
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      IF_GRADUATION = #{ifGraduation,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

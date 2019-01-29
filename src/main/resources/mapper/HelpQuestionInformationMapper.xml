@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HelpQuestionInformationMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.HelpQuestionInformation">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="QUESTION_CONTENT" jdbcType="VARCHAR" property="questionContent" />
+    <result column="QUESTION_KEYWORDS" jdbcType="VARCHAR" property="questionKeywords" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="QUESTION_TYPE_ID" jdbcType="VARCHAR" property="questionTypeId" />
+    <result column="IF_RELEASE" jdbcType="VARCHAR" property="ifRelease" />
+    <result column="IF_COMMON" jdbcType="VARCHAR" property="ifCommon" />
+    <result column="VISUAL_RANGE" jdbcType="VARCHAR" property="visualRange" />
+    <result column="CLICK_NUMBER" jdbcType="VARCHAR" property="clickNumber" />
+    <result column="NUMBER_POINTS" jdbcType="VARCHAR" property="numberPoints" />
+    <result column="NUMBER_BRICKS" jdbcType="VARCHAR" property="numberBricks" />
+    <result column="CREATION_PER" jdbcType="VARCHAR" property="creationPer" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="CREATION_DT" jdbcType="VARCHAR" property="creationDt" />
+    <result column="RELEASE_TM" jdbcType="VARCHAR" property="releaseTm" />
+    <result column="CREATION_TM" jdbcType="VARCHAR" property="creationTm" />
+    <result column="UPDATE_TM" jdbcType="VARCHAR" property="updateTm" />
+    <result column="TM_SMP" jdbcType="VARCHAR" property="tmSmp" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, QUESTION_CONTENT, QUESTION_KEYWORDS, STATUS, USER_ID, QUESTION_TYPE_ID, IF_RELEASE, 
+    IF_COMMON, VISUAL_RANGE, CLICK_NUMBER, NUMBER_POINTS, NUMBER_BRICKS, CREATION_PER, 
+    IP, CREATION_DT, RELEASE_TM, CREATION_TM, UPDATE_TM, TM_SMP, REMARK1, REMARK2, REMARK3, 
+    REMARK4, REMARK5
+  </sql>
+
+
+  <!-- 定时获取公共数据 -->
+  <select id="selectByexampleAllIdPage" parameterType="page" resultType="pd">
+    select
+    a.*,b.QUESTION_TYPE_NAME
+    from help_question_information a left join question_type_info b on a.QUESTION_TYPE_ID = b.ID
+    where
+    1 = 1
+    and a.STATUS = '0'  <!-- 1无效 0 有效 -->
+    and a.VISUAL_RANGE = '0'  <!-- 0平台所有，1提交学员自己 -->
+    and a.IF_COMMON = '1'  <!-- 0不常见 1常见 -->
+    and a.IF_RELEASE = '1'  <!-- 1已发布 0 未发布 -->
+    <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+      and a.UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+    </if>
+    <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+      and a.UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+    </if>
+    order by a.NUMBER_POINTS  limit #{pd.limitbegin},#{pd.limitend}
+  </select>
+
+
+
+
+  <!-- 根据条件和页数查询列表 -->
+  <select id="selectByexamplePage" parameterType="page" resultType="pd">
+    select
+    a.*,b.QUESTION_TYPE_NAME
+    from help_question_information a left join question_type_info b on a.QUESTION_TYPE_ID = b.ID
+    where
+    1 = 1
+    <if test="pd.id!= null and pd.id!= ''"><!-- id -->
+      and a.ID = #{pd.id}
+    </if>
+    <if test="pd.questionTypeId!= null and pd.questionTypeId!= ''"><!-- 类别id -->
+      and a.QUESTION_TYPE_ID = #{pd.questionTypeId}
+    </if>
+
+    <if test="pd.userId!= null and pd.userId!= ''"><!-- 用户id -->
+      and a.USER_ID = #{pd.userId}
+    </if>
+    <if test="pd.status!= null and pd.status!= ''"><!-- 是否有效 -->
+      and a.STATUS = #{pd.status}
+    </if>
+    <if test="pd.ifCommon!= null and pd.ifCommon!= ''"><!--是否常见公共 -->
+      and a.IF_COMMON = #{pd.ifCommon}
+    </if>
+    <if test="pd.ifRelease!= null and pd.ifRelease!= ''"><!--是否发布 -->
+      and a.IF_RELEASE = #{pd.ifRelease}
+    </if>
+    <if test="pd.qryTmBegin!= null and pd.qryTmBegin!= ''"><!-- 创建时间 -->
+      and a.CREATION_TM &gt;= #{pd.qryTmBegin}
+    </if>
+    <if test="pd.qryTmEnd!= null and pd.qryTmEnd!= ''"><!-- 创建时间 -->
+      and a.CREATION_TM &lt;= #{pd.qryTmEnd}
+    </if>
+    <if test="pd.qryTmBeginUpd!= null and pd.qryTmBeginUpd!= ''"><!-- 修改时间 -->
+      and a.UPDATE_TM &gt;= #{pd.qryTmBeginUpd}
+    </if>
+    <if test="pd.qryTmEndUpd!= null and pd.qryTmEndUpd!= ''"><!-- 修改时间 -->
+      and a.UPDATE_TM &lt;= #{pd.qryTmEndUpd}
+    </if>
+    order by a.UPDATE_TM desc  limit #{pd.limitbegin},#{pd.limitend}
+  </select>
+
+  <select id="selectTotal" parameterType="page" resultType="pd">
+    select
+    ID
+    from help_question_information
+    where
+    1 = 1
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from help_question_information
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from help_question_information
+    where ID = #{id,jdbcType=VARCHAR}
+    <if test="userId!= null and userId!= ''"><!-- 用户id -->
+      and USER_ID = #{userId}
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.HelpQuestionInformation">
+    insert into help_question_information (ID, QUESTION_CONTENT, QUESTION_KEYWORDS, 
+      STATUS, USER_ID, QUESTION_TYPE_ID, 
+      IF_RELEASE, IF_COMMON, VISUAL_RANGE, 
+      CLICK_NUMBER, NUMBER_POINTS, NUMBER_BRICKS, 
+      CREATION_PER, IP, CREATION_DT, 
+      RELEASE_TM, CREATION_TM, UPDATE_TM, 
+      TM_SMP, REMARK1, REMARK2, 
+      REMARK3, REMARK4, REMARK5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{questionContent,jdbcType=VARCHAR}, #{questionKeywords,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{questionTypeId,jdbcType=VARCHAR}, 
+      #{ifRelease,jdbcType=VARCHAR}, #{ifCommon,jdbcType=VARCHAR}, #{visualRange,jdbcType=VARCHAR}, 
+      #{clickNumber,jdbcType=VARCHAR}, #{numberPoints,jdbcType=VARCHAR}, #{numberBricks,jdbcType=VARCHAR}, 
+      #{creationPer,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{creationDt,jdbcType=VARCHAR}, 
+      #{releaseTm,jdbcType=VARCHAR}, #{creationTm,jdbcType=VARCHAR}, #{updateTm,jdbcType=VARCHAR}, 
+      #{tmSmp,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.HelpQuestionInformation">
+    insert into help_question_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="questionContent != null">
+        QUESTION_CONTENT,
+      </if>
+      <if test="questionKeywords != null">
+        QUESTION_KEYWORDS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="questionTypeId != null">
+        QUESTION_TYPE_ID,
+      </if>
+      <if test="ifRelease != null">
+        IF_RELEASE,
+      </if>
+      <if test="ifCommon != null">
+        IF_COMMON,
+      </if>
+      <if test="visualRange != null">
+        VISUAL_RANGE,
+      </if>
+      <if test="clickNumber != null">
+        CLICK_NUMBER,
+      </if>
+      <if test="numberPoints != null">
+        NUMBER_POINTS,
+      </if>
+      <if test="numberBricks != null">
+        NUMBER_BRICKS,
+      </if>
+      <if test="creationPer != null">
+        CREATION_PER,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT,
+      </if>
+      <if test="releaseTm != null">
+        RELEASE_TM,
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM,
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM,
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionContent != null">
+        #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionKeywords != null">
+        #{questionKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTypeId != null">
+        #{questionTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifRelease != null">
+        #{ifRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="ifCommon != null">
+        #{ifCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="visualRange != null">
+        #{visualRange,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNumber != null">
+        #{clickNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPoints != null">
+        #{numberPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="numberBricks != null">
+        #{numberBricks,jdbcType=VARCHAR},
+      </if>
+      <if test="creationPer != null">
+        #{creationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTm != null">
+        #{releaseTm,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.HelpQuestionInformation">
+    update help_question_information
+    <set>
+      <if test="questionContent != null">
+        QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionKeywords != null">
+        QUESTION_KEYWORDS = #{questionKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTypeId != null">
+        QUESTION_TYPE_ID = #{questionTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifRelease != null">
+        IF_RELEASE = #{ifRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="ifCommon != null">
+        IF_COMMON = #{ifCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="visualRange != null">
+        VISUAL_RANGE = #{visualRange,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNumber != null">
+        CLICK_NUMBER = #{clickNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="numberPoints != null">
+        NUMBER_POINTS = #{numberPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="numberBricks != null">
+        NUMBER_BRICKS = #{numberBricks,jdbcType=VARCHAR},
+      </if>
+      <if test="creationPer != null">
+        CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDt != null">
+        CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseTm != null">
+        RELEASE_TM = #{releaseTm,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTm != null">
+        CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTm != null">
+        UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      </if>
+      <if test="tmSmp != null">
+        TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.HelpQuestionInformation">
+    update help_question_information
+    set QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR},
+      QUESTION_KEYWORDS = #{questionKeywords,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      QUESTION_TYPE_ID = #{questionTypeId,jdbcType=VARCHAR},
+      IF_RELEASE = #{ifRelease,jdbcType=VARCHAR},
+      IF_COMMON = #{ifCommon,jdbcType=VARCHAR},
+      VISUAL_RANGE = #{visualRange,jdbcType=VARCHAR},
+      CLICK_NUMBER = #{clickNumber,jdbcType=VARCHAR},
+      NUMBER_POINTS = #{numberPoints,jdbcType=VARCHAR},
+      NUMBER_BRICKS = #{numberBricks,jdbcType=VARCHAR},
+      CREATION_PER = #{creationPer,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CREATION_DT = #{creationDt,jdbcType=VARCHAR},
+      RELEASE_TM = #{releaseTm,jdbcType=VARCHAR},
+      CREATION_TM = #{creationTm,jdbcType=VARCHAR},
+      UPDATE_TM = #{updateTm,jdbcType=VARCHAR},
+      TM_SMP = #{tmSmp,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      REMARK4 = #{remark4,jdbcType=VARCHAR},
+      REMARK5 = #{remark5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
