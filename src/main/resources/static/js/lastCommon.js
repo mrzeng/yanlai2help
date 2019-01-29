@@ -1,0 +1,243 @@
+/*加密解密js*/
+function aesEncrypt(data) {
+    var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+    var encrypted = CryptoJS.AES.encrypt(data, key,
+        {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+    return encrypted.toString();
+}
+
+function aesDeciphering(encrypted) {
+    var key = CryptoJS.enc.Utf8.parse(ALLENCRYPTCODE);
+    var decrypted = CryptoJS.AES.decrypt(encrypted.toString(), key,
+        {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+    decrypted = CryptoJS.enc.Utf8.stringify(decrypted);
+    // 转换为 utf8 字符串
+    return decrypted;
+}
+
+
+
+function checkTime(creat_dt_begin,creat_dt_end,update_dt_begin,update_dt_end){
+    if (null != creat_dt_begin && '' != creat_dt_begin) {
+        if (creat_dt_begin.length != 10) {
+            alertWarning('消息提醒：请输入规范的创建时间起始日期！');
+            return false;
+        }
+        creat_dt_begin = creat_dt_begin.substring(0, 4) + creat_dt_begin.substring(5, 7) + creat_dt_begin.substring(8, 10);
+        if (!isNumber(creat_dt_begin)) {
+            alertWarning('消息提醒：请输入规范的创建时间起始日期！');
+            return false;
+        }
+    }
+    if (null != creat_dt_end && '' != creat_dt_end) {
+        if (creat_dt_end.length != 10) {
+            alertWarning('消息提醒：请输入规范的创建时间截止日期！');
+            return false;
+        }
+        creat_dt_end = creat_dt_end.substring(0, 4) + creat_dt_end.substring(5, 7) + creat_dt_end.substring(8, 10);
+        if (!isNumber(creat_dt_end)) {
+            alertWarning('消息提醒：请输入规范的创建时间截止日期！');
+            return false;
+        }
+    }
+    if (null != creat_dt_end && '' != creat_dt_end && null != creat_dt_begin && '' != creat_dt_begin) {
+        if (creat_dt_end < creat_dt_begin) {
+            alertWarning('消息提醒：创建时间起始日期不能大于结束日期！');
+            return false;
+        }
+    }
+
+    if (null != update_dt_begin && '' != update_dt_begin) {
+        if (update_dt_begin.length != 10) {
+            alertWarning('消息提醒：请输入规范的更新时间起始日期！');
+            return false;
+        }
+        update_dt_begin = update_dt_begin.substring(0, 4) + update_dt_begin.substring(5, 7) + update_dt_begin.substring(8, 10);
+        if (!isNumber(update_dt_begin)) {
+            alertWarning('消息提醒：请输入规范的更新时间起始日期！');
+            return false;
+        }
+    }
+    if (null != update_dt_end && '' != update_dt_end) {
+        if (update_dt_end.length != 10) {
+            alertWarning('消息提醒：请输入规范的更新时间截止日期！');
+            return false;
+        }
+        update_dt_end = update_dt_end.substring(0, 4) + update_dt_end.substring(5, 7) + update_dt_end.substring(8, 10);
+        if (!isNumber(update_dt_end)) {
+            alertWarning('消息提醒：请输入规范的更新时间截止日期！');
+            return false;
+        }
+    }
+    if (null != update_dt_end && '' != update_dt_end && null != update_dt_begin && '' != update_dt_begin) {
+        if (update_dt_end < update_dt_begin) {
+            alertWarning('消息提醒：更新时间起始日期不能大于结束日期！');
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+
+
+(function ($) {
+
+    window.Ewin = function () {
+        var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+            '<div class="modal-dialog modal-sm">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+            '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '<p>[Message]</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+            '<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>' +
+            '<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+
+
+        var dialogdHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+            '<div class="modal-dialog">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+            '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var generateId = function () {
+            var date = new Date();
+            return 'mdl' + date.valueOf();
+        }
+        var init = function (options) {
+            options = $.extend({}, {
+                title: "操作提示",
+                message: "提示内容",
+                btnok: "确定",
+                btncl: "取消",
+                width: 200,
+                auto: false
+            }, options || {});
+            var modalId = generateId();
+            var content = html.replace(reg, function (node, key) {
+                return {
+                    Id: modalId,
+                    Title: options.title,
+                    Message: options.message,
+                    BtnOk: options.btnok,
+                    BtnCancel: options.btncl
+                }[key];
+            });
+            $('body').append(content);
+            $('#' + modalId).modal({
+                width: options.width,
+                backdrop: 'static'
+            });
+            $('#' + modalId).on('hide.bs.modal', function (e) {
+                $('body').find('#' + modalId).remove();
+            });
+            return modalId;
+        }
+
+        return {
+            alert: function (options) {
+                if (typeof options == 'string') {
+                    options = {
+                        message: options
+                    };
+                }
+                var id = init(options);
+                var modal = $('#' + id);
+                modal.find('.ok').removeClass('btn-success').addClass('btn-primary');
+                modal.find('.cancel').hide();
+
+                return {
+                    id: id,
+                    on: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            modal.find('.ok').click(function () { callback(true); });
+                        }
+                    },
+                    hide: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            modal.on('hide.bs.modal', function (e) {
+                                callback(e);
+                            });
+                        }
+                    }
+                };
+            },
+            confirm: function (options) {
+                var id = init(options);
+                var modal = $('#' + id);
+                modal.find('.ok').removeClass('btn-primary').addClass('btn-success');
+                modal.find('.cancel').show();
+                return {
+                    id: id,
+                    on: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            modal.find('.ok').click(function () { callback(true); });
+                            modal.find('.cancel').click(function () { callback(false); });
+                        }
+                    },
+                    hide: function (callback) {
+                        if (callback && callback instanceof Function) {
+                            modal.on('hide.bs.modal', function (e) {
+                                callback(e);
+                            });
+                        }
+                    }
+                };
+            },
+            dialog: function (options) {
+                options = $.extend({}, {
+                    title: 'title',
+                    url: '',
+                    width: 800,
+                    height: 550,
+                    onReady: function () { },
+                    onShown: function (e) { }
+                }, options || {});
+                var modalId = generateId();
+
+                var content = dialogdHtml.replace(reg, function (node, key) {
+                    return {
+                        Id: modalId,
+                        Title: options.title
+                    }[key];
+                });
+                $('body').append(content);
+                var target = $('#' + modalId);
+                target.find('.modal-body').load(options.url);
+                if (options.onReady())
+                    options.onReady.call(target);
+                target.modal();
+                target.on('shown.bs.modal', function (e) {
+                    if (options.onReady(e))
+                        options.onReady.call(target, e);
+                });
+                target.on('hide.bs.modal', function (e) {
+                    $('body').find(target).remove();
+                });
+            }
+        }
+    }();
+})(jQuery);
