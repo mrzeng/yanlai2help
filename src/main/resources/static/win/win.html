@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>window.js例子</title>
+    <link href="window/window.css" rel="stylesheet" />
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="window/window.js"></script>
+
+    <script type="text/javascript">
+        function _alert() {
+            win.alert('系统提示', '这是alert效果！');
+        }
+
+        function _confirm() {
+            win.confirm('系统提示', '确定这是confirm效果吗？', function (r) {
+                win.alertEx('结果：' + (r ? "是" : "不是"))
+            });
+        }
+
+        function _openDlg() {
+            win.open(600, 400, 'window.js例子', '/');
+        }
+    </script>
+</head>
+<body>
+    <button onclick="_alert();">alert</button>
+    <button onclick="_confirm();">confirm</button>
+    <button onclick="_openDlg();">openDlg</button>
+</body>
+</html>
